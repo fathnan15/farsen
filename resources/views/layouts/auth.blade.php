@@ -45,7 +45,25 @@
         <script src="metronic/plugins/global/plugins.bundle.js"></script>
         <script src="metronic/js/scripts.bundle.js"></script>
         <!--end::Global Javascript Bundle-->
+		<!--begin::Page Custom Javascript(used by this page)-->
+		<script src="metronic/js/custom/authentication/sign-in/general.js"></script>
+		<!--end::Page Custom Javascript-->        
         <!--end::Javascript-->
+
+        @if ($errors->any())
+        <script>
+            Swal.fire({
+                text: "Sorry, looks like there are some errors detected, please try again.",
+                icon: "error",
+                buttonsStyling: !1,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                },
+            })
+            </script>
+        @endif
+        
     </body>
     <!--end::Body-->
 </html>

@@ -6,6 +6,7 @@
 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
     <!--begin::Form-->
     <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="login" method="POST">
+        @csrf
         <!--begin::Heading-->
         <div class="text-center mb-10">
             <!--begin::Title-->
@@ -19,10 +20,15 @@
             <label class="form-label fs-6 fw-bolder text-dark">Username</label>
             <!--end::Label-->
             <!--begin::Input-->
-            <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" value="" />
+            <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" value="{{ old('username') }}" />
             <!--end::Input-->
             <div class="invalid-feedback">
             </div>
+            @error('username')
+            <div class="fv-plugins-message-container invalid-feedback">
+                <div>{{ $message }}</div>
+            </div>            
+            @enderror
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
@@ -38,7 +44,12 @@
             <input class="form-control form-control-lg form-control-solid" type="password" name="password" autocomplete="off" />
             <!--end::Input-->
             <div class="invalid-feedback">
-            </div>
+            </div>            
+            @error('password')
+            <div class="fv-plugins-message-container invalid-feedback">
+                <div>{{ $message }}</div>
+            </div>            
+            @enderror                
         </div>
         <!--end::Input group-->
         <!--begin::Actions-->

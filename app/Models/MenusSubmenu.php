@@ -14,4 +14,5 @@ class MenusSubmenu extends Model
         'updated_at',
         'is_active',
     ];
+    
 }

@@ -16,7 +16,7 @@ class UsersRole extends Model
         'is_active',
     ];
 
-    public function user(): HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(Users::class, 'role_id');
     }

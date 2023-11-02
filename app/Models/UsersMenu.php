@@ -26,4 +26,9 @@ class UsersMenu extends Model
     {
         return $this->belongsToMany(Users::class,UsersAccess::class,'menu_id','user_id');
     }
+    
+    public function submenus()
+    {
+        return $this->hasMany(Submenu::class);
+    }
 }

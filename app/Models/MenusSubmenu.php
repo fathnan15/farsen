@@ -16,8 +16,12 @@ class MenusSubmenu extends Model
         'is_active',
     ];
     
-    public function menu():BelongsTo
+    // public function menu():BelongsTo
+    // {
+    //     return $this->belongsTo(UsersMenu::class);
+    // }
+    public function menu()
     {
-        return $this->belongsTo(UsersMenu::class);
+        return $this->belongsTo(Menu::class);
     }
 }

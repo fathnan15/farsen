@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Users extends Authenticatable 
@@ -34,14 +35,18 @@ class Users extends Authenticatable
         return $this->belongsTo(UsersRole::class);
     }
 
-    // public function UserAccessess(): HasManyThrough
-    // {
-    //     return $this->hasManyThrough(
-    //         UsersMenu::class,
-    //         UsersAccess::class,
-    //         'user_id',
-    //         'id');
-    // }
+    public function access()
+    {
+        return $this->hasMany(UsersAccess::class);
+    }
+
+    public function menu():HasMany {
+        return $this->hasMany(
+            UsersAccess::class,
+            'user_id',
+            'id'
+        );
+    }
 
     public function subMenus():HasManyThrough
     {
@@ -52,6 +57,15 @@ class Users extends Authenticatable
             'menu_id',
             'id',
             'menu_id'
+        );
+    }
+    public function menus():HasManyThrough
+    {
+        return $this->hasManyThrough(
+            UsersMenu::class,
+            UsersAccess::class,
+            'user_id',
+            'id','id','menu_id'
         );
     }
 }

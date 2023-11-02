@@ -18,18 +18,33 @@ class UsersAccess extends Model
         'is_active',
     ];
 
-    public function user(): BelongsTo
+    // public function user(): BelongsTo
+    // {
+    //     return $this->belongsTo(Users::class,'user_id');
+    // }
+
+    // public function menu(): BelongsTo
+    // {
+    //     return $this->belongsTo(UsersMenu::class,'menu_id');
+    // }
+    public function user()
     {
-        return $this->belongsTo(Users::class,'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function menu(): BelongsTo
+    public function menu()
     {
-        return $this->belongsTo(UsersMenu::class,'menu_id');
-    }
+        return $this->belongsTo(Menu::class);
+    }    
     
     public function submenus(): HasManyThrough
     {
-        return $this->hasManyThrough(MenusSubmenu::class, UsersMenu::class);
+        return $this->hasManyThrough(
+            MenusSubmenu::class,
+            UsersMenu::class);
     }
+    // public function submenus()
+    // {
+    //     return $this->hasman
+    // }
 }

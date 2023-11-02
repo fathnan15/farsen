@@ -32,33 +32,20 @@ class UserController extends Controller
      */
     public function authenticate(Request $request): RedirectResponse
     {
-        // $user = $this->user_model->where('username',$request->username)->first();
 
 
-        // if($user && password_verify($request->password,$user->password))
-        // {
-        //     // dd($user->username);?
-        //     Auth::login($user,false);
-        //     // dd();
-        //     $request->session()->regenerate();
-        //     return redirect()->intended('dashboard');
-        // }
+        $credentials = $request->validate(
+            [
+                'username' => ['required'],
+                'password' => ['required']
+            ]
+            );
 
-        // $credentials = $request->validate(
-        //     [
-        //         'username' => ['required'],
-        //         'password' => ['required']
-        //     ]
-        //     );
-
-        $credentials = [
-            'username' => $request->username,
-            'password' => $request->password,
-        ];
-            
-        if (Auth::attempt($credentials)) {
-            dd('oke');
-        }
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                // Auth::login();
+                return redirect()->intended('/dashboard');
+            }
 
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',

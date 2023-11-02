@@ -7,6 +7,8 @@
 	<title>Document</title>
 </head>
 <body>
-	<h1>oke</h1>
+	@auth
+	<h1>{{ auth()->user()->name }}</h1>
+	@endauth
 </body>
 </html>

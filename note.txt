@@ -1,0 +1,101 @@
+#create Users
+
+Users::create([
+    'name' => 'Admin',
+    'username' => 'admin',
+    'password' => bcrypt('admin123'),
+    'role_id'  => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+Users::create([
+    'name' => 'Fathnan Badarudin Nuri',
+    'username' => 'fathnan',
+    'password' => bcrypt('fathnan123'),
+    'role_id'  => 2,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+Users::create([
+    'name' => 'Annisa Rahma Fitri Zulma',
+    'username' => 'rahma',
+    'password' => bcrypt('rahma123'),
+    'role_id'  => 2,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersRole::create([
+    'role_nm' => 'administrator',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersRole::create([
+    'role_nm' => 'member',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersAccess::create([
+    'user_id' => 1,
+    'menu_id' => 1,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersAccess::create([
+    'user_id' => 1,
+    'menu_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersAccess::create([
+    'user_id' => 2,
+    'menu_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersAccess::create([
+    'user_id' => 3,
+    'menu_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersMenu::create([
+    'menu_nm' => 'administrator',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+MenusSubmenu::create([
+    'submenu_nm' => 'Users',
+    'url' => 'administrator/users',
+    'menu_id' => 1,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UsersMenu::create([
+    'menu_nm' => 'user',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+MenusSubmenu::create([
+    'submenu_nm' => 'profile',
+    'url' => 'user/profile',
+    'menu_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+MenusSubmenu::create([
+    'submenu_nm' => 'setting',
+    'url' => 'user/setting',
+    'menu_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])

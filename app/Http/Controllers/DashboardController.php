@@ -11,8 +11,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-      $menu = Users::find(Auth::id())->menus->pluck('menu_nm');
-      dd($menu);
-
+      $menus = Users::find(Auth::id())->menus;
+      // echo '<pre>';
+      // var_dump($menu);
+      // echo '</pre>';
+      // die;
+      return view('dashboard',['menus' => $menus]);
     }
 }

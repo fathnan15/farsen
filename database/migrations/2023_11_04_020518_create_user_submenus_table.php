@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus_submenus', function (Blueprint $table) {
+        Schema::create('user_submenus', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('submenu_nm')->unique();
             $table->string('url')->unique();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus_submenus');
+        Schema::dropIfExists('user_submenus');
     }
 };

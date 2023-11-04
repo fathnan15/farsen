@@ -1,6 +1,6 @@
 #create Users
 
-Users::create([
+User::create([
     'name' => 'Admin',
     'username' => 'admin',
     'password' => bcrypt('admin123'),
@@ -8,7 +8,7 @@ Users::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
-Users::create([
+User::create([
     'name' => 'Fathnan Badarudin Nuri',
     'username' => 'fathnan',
     'password' => bcrypt('fathnan123'),
@@ -16,7 +16,7 @@ Users::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
-Users::create([
+User::create([
     'name' => 'Annisa Rahma Fitri Zulma',
     'username' => 'rahma',
     'password' => bcrypt('rahma123'),
@@ -24,53 +24,53 @@ Users::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersRole::create([
+UserRole::create([
     'role_nm' => 'administrator',
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersRole::create([
+UserRole::create([
     'role_nm' => 'member',
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersAccess::create([
+UserAccess::create([
     'user_id' => 1,
     'menu_id' => 1,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersAccess::create([
+UserAccess::create([
     'user_id' => 1,
     'menu_id' => 2,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersAccess::create([
+UserAccess::create([
     'user_id' => 2,
     'menu_id' => 2,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersAccess::create([
+UserAccess::create([
     'user_id' => 3,
     'menu_id' => 2,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersMenu::create([
+UserMenu::create([
     'menu_nm' => 'administrator',
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-MenusSubmenu::create([
+UserSubmenu::create([
     'submenu_nm' => 'Users',
     'url' => 'administrator/users',
     'menu_id' => 1,
@@ -78,13 +78,13 @@ MenusSubmenu::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UsersMenu::create([
+UserMenu::create([
     'menu_nm' => 'user',
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
-MenusSubmenu::create([
+UserSubmenu::create([
     'submenu_nm' => 'profile',
     'url' => 'user/profile',
     'menu_id' => 2,
@@ -92,7 +92,7 @@ MenusSubmenu::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
-MenusSubmenu::create([
+UserSubmenu::create([
     'submenu_nm' => 'setting',
     'url' => 'user/setting',
     'menu_id' => 2,

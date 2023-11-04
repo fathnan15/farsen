@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Contracts\View\View;
@@ -17,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/', 'dashboard');
 
-Route::get('/login', [UserController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [UserController::class, 'authenticate']);
-Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard')->middleware('auth');
+Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticate']);
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/user/profile', [UserController::class,'profile']);
+});

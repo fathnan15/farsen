@@ -3,5 +3,5 @@
 
 @section('content')
 <h1>Welcome, to Farsen {{ auth()->user()->username }}</h1>
-<?php echo $menus ?>
+
 @endsection

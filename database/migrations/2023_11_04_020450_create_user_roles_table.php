@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users_accesses', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->foreignId('user_id')->comment('relate to table:users, column:id');
-            $table->foreignId('menu_id')->comment('relate to table:users_menus, column:id');
+            $table->string('role_nm')->unique();
             $table->foreignId('created_by')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->default(now('Asia/Jakarta'));
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_accesses');
+        Schema::dropIfExists('user_roles');
     }
 };

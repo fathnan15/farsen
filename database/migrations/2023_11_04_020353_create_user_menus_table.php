@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users_menus', function (Blueprint $table) {
+        Schema::create('user_menus', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('menu_nm')->unique();
-            $table->string('icon')->default('fas fa-prescription"');
+            $table->string('path')->unique();
+            $table->string('icon')->default('fas fa-prescription');
             $table->foreignId('created_by');
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->default(now('Asia/Jakarta'));
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_menus');
+        Schema::dropIfExists('user_menus');
     }
 };

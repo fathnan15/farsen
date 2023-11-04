@@ -39,7 +39,7 @@
                         <a href="/profile">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-50px">
-                                <img src="{{ asset('app/images/avatars/'.auth()->user()->avatar) }}" alt="avatar" />
+                                <img src="{{ asset('app/images/avatars'.'/'.auth()->user()->avatar) }}" alt="avatar" />
                             </div>
                             <!--end::Symbol-->
                             <!--begin::Wrapper-->
@@ -150,20 +150,6 @@
 											<!--begin::Menu item-->
 											<div class="menu-item px-5 bg-secondary text-danger">
 												<a href="/logout" class="menu-link px-5">Log Out</a>
-											</div>
-											<!--end::Menu item-->
-											<!--begin::Menu separator-->
-											<div class="separator my-2"></div>
-											<!--end::Menu separator-->
-											<!--begin::Menu item-->
-											<div class="menu-item px-5">
-												<div class="menu-content px-5">
-													<label class="form-check form-switch form-check-custom form-check-solid pulse pulse-success" for="kt_user_menu_dark_mode_toggle">
-														<input class="form-check-input w-30px h-20px" type="checkbox" value="1" name="mode" id="kt_user_menu_dark_mode_toggle" data-kt-url="/metronic8/demo8/../demo8/dark/index.html">
-														<span class="pulse-ring ms-n1"></span>
-														<span class="form-check-label text-gray-600 fs-7">Dark Mode</span>
-													</label>
-												</div>
 											</div>
 											<!--end::Menu item-->
 										</div>

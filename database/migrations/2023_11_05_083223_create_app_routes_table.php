@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use function Laravel\Prompts\table;
+
 return new class extends Migration
 {
     /**
@@ -11,12 +13,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_submenus', function (Blueprint $table) {
+        Schema::create('app_routes', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('submenu_nm');
-            $table->string('route_nm')->nullable(true);
-            $table->unsignedSmallInteger('menu_id')->nullable(true)->comment('relate to table:user_menus, column:id');
-            $table->unsignedSmallInteger('submenu_relate_id')->comment('relate to table:user_submenus, column:id; for submenu item')->nullable(true);
+            $table->string('http_req');
+            $table->string('uri');
+            $table->string('controller');
+            $table->string('action');
+            $table->string('name');
+            $table->boolean('is_auth')->default(1);
             $table->foreignId('created_by')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->default(now('Asia/Jakarta'));
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user_submenus');
+        Schema::dropIfExists('app_routes');
     }
 };

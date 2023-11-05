@@ -16,10 +16,10 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('name');
             $table->string('username')->unique();
-            $table->string('avatar')->default('default.png');
+            $table->string('avatar')->default('default.jpg');
             $table->string('password');
             $table->string('adm_pwd')->default(Str::random(6));
-            $table->foreignId('role_id')->default(2)->comment('relate to table:users_role, column:id');
+            $table->foreignId('role_id')->default(2)->comment('relate to table:user_roles, column:id');
             $table->rememberToken();
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->default(now('Asia/Jakarta'));

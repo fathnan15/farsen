@@ -71,14 +71,6 @@ UserMenu::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
-UserSubmenu::create([
-    'submenu_nm' => 'Users',
-    'url' => 'administrator/users',
-    'menu_id' => 1,
-    'created_by' => 1,
-    'created_at' => now('Asia/Jakarta'),
-])
-
 UserMenu::create([
     'menu_nm' => 'user',
     'path' => 'user',
@@ -87,17 +79,130 @@ UserMenu::create([
 ])
 
 UserSubmenu::create([
+    'submenu_nm' => 'Users',
+    'route_nm'  => 'users management',
+    'menu_id' => 1,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+
+UserSubmenu::create([
     'submenu_nm' => 'profile',
-    'url' => 'user/profile',
+    'route_nm'  => 'profile',
     'menu_id' => 2,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
 
 UserSubmenu::create([
-    'submenu_nm' => 'setting',
-    'url' => 'user/setting',
+    'submenu_nm' => 'Settings',
     'menu_id' => 2,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Account Setting',
+    'route_nm'  => 'account setting',
+    'submenu_relate_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Profile Setting',
+    'route_nm'  => 'profile setting',
+    'submenu_relate_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'login',
+    'controller'    =>  'AuthController',
+    'action'        =>  'index',
+    'name'          =>  'login',
+    'is_auth'       =>  0,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'post',
+    'uri'           =>  'login',
+    'controller'    =>  'AuthController',
+    'action'        =>  'authenticate',
+    'name'          =>  'login',
+    'is_auth'       =>  0,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'logout',
+    'controller'    =>  'AuthController',
+    'action'        =>  'logout',
+    'name'          =>  'logout',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'dashboard',
+    'controller'    =>  'DashboardController',
+    'action'        =>  'index',
+    'name'          =>  'dashboard',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'administrator/users',
+    'controller'    =>  'AdministratorController',
+    'action'        =>  'users',
+    'name'          =>  'users management',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'user/profile',
+    'controller'    =>  'UserController',
+    'action'        =>  'profile',
+    'name'          =>  'profile',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'user/settings/account',
+    'controller'    =>  'UserController',
+    'action'        =>  'accountSetting',
+    'name'          =>  'account setting',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'user/settings/profile',
+    'controller'    =>  'UserController',
+    'action'        =>  'profileSetting',
+    'name'          =>  'profile setting',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
 ])

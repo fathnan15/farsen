@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('role_nm')->unique();
-            $table->foreignId('created_by')->comment('relate to table:users, column:id');
+            $table->foreignId('created_by')->comment('relate to table:user, column:id');
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->default(now('Asia/Jakarta'));
             $table->boolean('is_active')->default(1);

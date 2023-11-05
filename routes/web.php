@@ -1,9 +1,5 @@
 <?php
-
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserController;
-use Illuminate\Contracts\View\View;
+use App\Models\AppRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,11 +14,19 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/', 'dashboard');
 
-Route::get('/login', [AuthController::class, 'index'])->name('login')->middleware('guest');
-Route::post('/login', [AuthController::class, 'authenticate']);
-
-Route::middleware(['auth'])->group(function(){
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::get('/user/profile', [UserController::class,'profile']);
-});
+try {
+    $routes = AppRoute::all();
+    foreach ($routes as $route) {
+        if ($route->is_auth) {
+            Route::match([$route->http_req], $route->uri, [join('\\',['App\Http\Controllers', $route->controller]), $route->action])->name($route->name)->middleware('auth');
+        }
+        else {
+            Route::match([$route->http_req], $route->uri, [join('\\',['App\Http\Controllers', $route->controller]), $route->action])->name($route->name)->middleware('guest');
+        }
+    }
+} catch (Exception $e) {
+    echo '*************************************' . PHP_EOL;
+    echo 'Error fetching database pages: ' . PHP_EOL;
+    echo $e->getMessage() . PHP_EOL;
+    echo '*************************************' . PHP_EOL;
+}

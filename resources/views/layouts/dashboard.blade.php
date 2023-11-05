@@ -3,7 +3,7 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
-    <title>FARSEN @yield('title', '')</title>
+    <title>FARSEN @yield('title-page', '')</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
@@ -34,77 +34,30 @@
                 <!--begin::Aside Toolbarl-->
                 <div class="aside-toolbar flex-column-auto" id="kt_aside_toolbar">
                     <!--begin::User-->
-                    <div class="aside-user d-flex align-items-sm-center justify-content-center py-5 text-hover-primary text-white"
-                        style="border-bottom: 1px solid #2d2d43; cursor:pointer">
-                        <a href="/profile">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-50px">
-                                <img src="{{ asset('app/images/avatars'.'/'.auth()->user()->avatar) }}" alt="avatar" />
-                            </div>
-                            <!--end::Symbol-->
-                            <!--begin::Wrapper-->
-                            <div class="aside-user-info flex-row-fluid flex-wrap ms-5">
-                                <!--begin::Section-->
-                                <div class="d-flex">
+                    <div class="aside-user d-flex align-items-sm-center justify-content-center py-5 text-white"
+                        style="border-bottom: 1px solid #2d2d43">
+                        <!--begin::Symbol-->
+                        <div class="symbol symbol-50px">
+                            <img src="{{ asset('app/images/avatars'.'/'.auth()->user()->avatar) }}" alt="avatar" />
+                        </div>
+                        <!--end::Symbol-->
+                        <!--begin::Wrapper-->
+                        <div class="aside-user-info flex-row-fluid flex-wrap ms-5">
+                            <!--begin::Section-->
+                            <div class="d-flex justify-content-between">
                                     <!--begin::Info-->
-                                    <div class="flex-grow-1 me-2">
+                                    <div class="flex-grow-2 me-2">
                                         <span class="fw-bolder d-flex align-items-start fs-5">
                                             {{ auth()->user()->username }}
                                         </span>
+                                        <span class="fw-bold align-items-start text-muted fs-7">
+                                            {{ Str::title(auth()->user()->name) }}
+                                        </span>
                                         <!--end::Username-->
-
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
-                                            data-kt-menu="true">
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <div class="menu-content d-flex align-items-center px-3">
-                                                    <!--begin::Avatar-->
-                                                    <div class="symbol symbol-50px me-5">
-                                                        {{-- start: change --}}
-                                                        <img alt="Logo"
-                                                            src="{{ asset('app/images/avatars/'.auth()->user()->avatar) }}" />
-                                                        {{-- end: change --}}
-                                                    </div>
-                                                    <!--end::Avatar-->
-                                                    <!--begin::Username-->
-                                                    <div class="d-flex flex-column">
-                                                        <div
-                                                            class="fw-bolder d-flex align-items-center fs-5 text-uppercase">
-                                                            {{ auth()->user()->name }}
-                                                            <!-- <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">Pro</span> -->
-                                                        </div>
-                                                        <span class="fw-bold text-muted text-hover-primary fs-7">
-                                                            {{ auth()->user()->name }}
-                                                        </span>
-                                                    </div>
-                                                    <!--end::Username-->
-                                                </div>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu separator-->
-                                            <div class="separator my-2"></div>
-                                            <!--end::Menu separator-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-5">
-                                                <!-- <span href="" id="myprofile" class="menu-link px-5">My Profile</span> -->
-                                            </div>
-                                            <!--end::Menu item-->
-
-                                            <!--begin::Menu separator-->
-                                            <div class="separator my-2"></div>
-                                            <!--end::Menu separator-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-5 my-1">
-                                                <a href="profile/settings" class="menu-link px-5">Account Settings</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <!--end::Menu item-->
-                                        </div>
                                     </div>
                                     <!--end::Info-->
                                     <!--begin::User menu-->
-                                    <div class="me-n2">
+                                    <div class="d-flex me-n2 align-items-center">
                                         <!--begin::Action-->
                                         <a href="#" class="btn btn-icon btn-sm btn-active-color-primary mt-n2" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-start" data-kt-menu-overflow="true">
 											<!--begin::Svg Icon | path: icons/duotune/coding/cod001.svg-->
@@ -119,7 +72,7 @@
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true" style="">
 											<!--begin::Menu item-->
 											<div class="menu-item px-5">
-												<a href="user/profile" class="menu-link px-5">Profile</a>
+												<a href="{{ Route('profile') }}" class="menu-link px-5">Profile</a>
 											</div>
 											<!--end::Menu item-->
 											<!--begin::Menu item-->
@@ -148,8 +101,8 @@
 											<div class="separator my-2"></div>
 											<!--end::Menu separator-->
 											<!--begin::Menu item-->
-											<div class="menu-item px-5 bg-secondary text-danger">
-												<a href="/logout" class="menu-link px-5">Log Out</a>
+											<div class="menu-item px-5">
+												<a href="/logout" class="menu-link px-5 text-hover-danger bg-hover-secondary" >Log Out</a>
 											</div>
 											<!--end::Menu item-->
 										</div>
@@ -177,32 +130,12 @@
                         <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                             id="#kt_aside_menu" data-kt-menu="true">
 
-                            {{-- <div class="menu-item">
-                                <a class="menu-link" href="/administrator">
-                                    <span class="menu-icon">
-                                        <span class="svg-icon svg-icon-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                viewBox="0 0 24 24" fill="none">
-                                                <rect x="2" y="2" width="9" height="9" rx="2"
-                                                    fill="black"></rect>
-                                                <rect opacity="0.3" x="13" y="2" width="9" height="9"
-                                                    rx="2" fill="black"></rect>
-                                                <rect opacity="0.3" x="13" y="13" width="9" height="9"
-                                                    rx="2" fill="black"></rect>
-                                                <rect opacity="0.3" x="2" y="13" width="9" height="9"
-                                                    rx="2" fill="black"></rect>
-                                            </svg>
-                                        </span>
-                                    </span>
-                                    <span class="menu-title">Administrator</span>
-                                </a>
-                            </div> --}}
                             @php
                                 $menus = App\Models\UserMenu::WhereIn('id', App\Models\User::find(auth()->id())->access->pluck('menu_id'))->get();
                             @endphp
 
                             @foreach ($menus as $menu)
-                                @continue($menu->menu_nm == 'user')
+                                {{-- @continue($menu->menu_nm == 'user') --}}
                                 <div data-kt-menu-trigger="click"
                                     class="menu-item menu-accordion hover @if (request()->is(trim($menu->path, '/') . '*')) show @endif">
                                     <span class="menu-link">
@@ -225,15 +158,41 @@
                                             class="menu-sub menu-sub-accordion menu-active-bg 
                                     @if (request()->is(trim($menu->path, '/') . '*')) show @endif
                                     ">
-                                            <div class="menu-item">
-                                                <a class="menu-link @if (request()->is($subMenu->url)) active @endif"
-                                                    href="{{ $subMenu->url }}">
-                                                    {{-- <span class="menu-bullet">
-                                                    <i class="fas fa-prescription"></i>
-                                                </span> --}}
-                                                    <span class="menu-title">{{ Str::title($subMenu->submenu_nm) }}</span>
-                                                </a>
-                                            </div>
+                                    @if ($subMenu->route_nm !== NULL && $subMenu->submenu_relate_id === NULL)
+                                        <div class="menu-item">
+											<a class="menu-link @if (trim(Str::lower($__env->yieldContent('title-head'))) == Str::lower($subMenu->submenu_nm)) active @endif" href="{{ Route($subMenu->route_nm) }}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+												<span class="menu-title">{{ Str::title($subMenu->submenu_nm) }}</span>
+											</a>
+										</div>
+                                    @else
+                                        <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                                            <span class="menu-link">
+                                                <span class="menu-bullet">
+                                                    <span class="bullet bullet-dot"></span>
+                                                </span>
+                                                <span class="menu-title">{{ $subMenu->submenu_nm }}</span>
+                                                <span class="menu-arrow"></span>
+                                            </span>
+                                            <div class="menu-sub menu-sub-accordion menu-active-bg">
+                                            @php
+                                                $subMenu_items = App\Models\UserSubmenu::where('relate_id', $subMenu->id)->get()
+                                            @endphp
+                                            @foreach ($subMenu_items as $menu_item)
+												<div class="menu-item">
+													<a class="menu-link" href="{{ Route($menu_item->route_nm) }}">
+														<span class="menu-bullet">
+															<span class="bullet bullet-dot"></span>
+														</span>
+														<span class="menu-title">{{ Str::title($menu_item->submenu_nm) }}</span>
+													</a>
+												</div>
+                                                @endforeach
+											</div>
+                                        </div>                                       
+                                    @endif
                                         </div>
                                     @endforeach
                                 </div>
@@ -431,7 +390,7 @@
                             <!--begin::Page title-->
                             <div class="page-title d-flex flex-column me-5">
                                 <!--begin::Title-->
-                                <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">Dashboard</h1>
+                                <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">@yield('title-head')</h1>
                                 <!--end::Title-->
                             </div>
                             <!--end::Page title-->
@@ -495,8 +454,8 @@
                                     <!--end::Title-->
                                 </div>
                                 <!--end::Info--> --}}
-                                @yield('content')
                             </div>
+                            @yield('content')
                             {{-- <!--begin::Navbar-->
                             <div class="card mb-5 mb-xl-10">
                                 <div class="card-body py-0">

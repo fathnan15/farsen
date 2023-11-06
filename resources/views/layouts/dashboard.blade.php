@@ -1,3 +1,9 @@
+@php
+    $menuModel = App\Models\UserMenu::WhereIn('id', App\Models\User::find(auth()->id())->access->pluck('menu_id'))->get();
+    $subsMenuModel = App\Models\UserSubmenu::all();
+@endphp
+
+
 <!DOCTYPE html>
 <html lang="en">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
@@ -70,33 +76,50 @@
 											<!--end::Svg Icon-->
 										</a>
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true" style="">
+                                            @php
+                                                $userMenu = $menuModel->filter(function($um) {
+                                                    return $um->menu_nm == 'user';
+                                                })->first();
+                                                $um_id = $userMenu->id;
+                                                $subsUserMenu = $subsMenuModel->filter(function($usm) use ($um_id) {
+                                                    return $usm->menu_id == $um_id;
+                                                })->all();
+                                            @endphp
 											<!--begin::Menu item-->
-											<div class="menu-item px-5">
-												<a href="{{ Route('profile') }}" class="menu-link px-5">Profile</a>
-											</div>
+											@foreach ($subsUserMenu as $userSubMenu)
+                                            @if ($userSubMenu->route_nm !== NULL && $userSubMenu->relate_id === NULL)
+                                                <div class="menu-item px-5">
+                                                    <a href="{{ Route($userSubMenu->route_nm) }}" class="menu-link px-5">{{ Str::title($userSubMenu->submenu_nm) }}</a>
+                                                </div>                               
+                                            @else
+                                                <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
+                                                    <a href="#" class="menu-link px-5">
+                                                        <span class="menu-title">{{ Str::title($userSubMenu->submenu_nm) }}</span>
+                                                        <span class="menu-arrow"></span>
+                                                    </a>
+                                                    @php
+                                                        $usm_id = $userSubMenu->id;
+                                                        $userSubMenu_items = $subsMenuModel->filter(function($sm) use ($usm_id) {
+                                                            return $sm->relate_id == $usm_id;
+                                                        });
+                                                        @endphp
+                                                    <!--begin::Menu sub-->
+                                                    <div class="menu-sub menu-sub-dropdown w-175px py-4">
+                                                        @foreach ($userSubMenu_items as $usm_item)
+                                                        <!--begin::Menu item-->
+                                                        <div class="menu-item px-3">
+                                                            <a href="{{ Route($usm_item->route_nm) }}" class="menu-link px-5">{{ Str::title($usm_item->submenu_nm) }}</a>
+                                                        </div>
+                                                        @endforeach
+                                                        <!--end::Menu item-->
+                                                    </div>
+                                                    <!--end::Menu sub-->
+                                                </div>
+                                                <!--end::Menu item-->
+                                            @endif
+                                            @endforeach
 											<!--end::Menu item-->
 											<!--begin::Menu item-->
-											<div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="right-start">
-												<a href="#" class="menu-link px-5">
-													<span class="menu-title">Settings</span>
-													<span class="menu-arrow"></span>
-												</a>
-												<!--begin::Menu sub-->
-												<div class="menu-sub menu-sub-dropdown w-175px py-4">
-													<!--begin::Menu item-->
-													<div class="menu-item px-3">
-														<a href="account/referrals.html" class="menu-link px-5">Account Setting</a>
-													</div>
-													<!--end::Menu item-->
-													<!--begin::Menu item-->
-													<div class="menu-item px-3">
-														<a href="account/billing.html" class="menu-link px-5">Profile Setting</a>
-													</div>
-													<!--end::Menu item-->
-												</div>
-												<!--end::Menu sub-->
-											</div>
-											<!--end::Menu item-->
 											<!--begin::Menu separator-->
 											<div class="separator my-2"></div>
 											<!--end::Menu separator-->
@@ -130,12 +153,8 @@
                         <div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
                             id="#kt_aside_menu" data-kt-menu="true">
 
-                            @php
-                                $menus = App\Models\UserMenu::WhereIn('id', App\Models\User::find(auth()->id())->access->pluck('menu_id'))->get();
-                            @endphp
-
-                            @foreach ($menus as $menu)
-                                {{-- @continue($menu->menu_nm == 'user') --}}
+                            @foreach ($menuModel as $menu)
+                                @continue($menu->menu_nm == 'user')
                                 <div data-kt-menu-trigger="click"
                                     class="menu-item menu-accordion hover @if (request()->is(trim($menu->path, '/') . '*')) show @endif">
                                     <span class="menu-link">
@@ -150,7 +169,10 @@
                                         <span class="menu-arrow"></span>
                                     </span>
                                     @php
-                                        $subsMenu = App\Models\UserSubmenu::where('menu_id', $menu->id)->get();
+                                        $m_id = $menu->id;
+                                        $subsMenu = $subsMenuModel->filter(function($m) use ($m_id) {
+                                            return $m->menu_id == $m_id;
+                                        })
                                     @endphp
 
                                     @foreach ($subsMenu as $subMenu)
@@ -158,7 +180,7 @@
                                             class="menu-sub menu-sub-accordion menu-active-bg 
                                     @if (request()->is(trim($menu->path, '/') . '*')) show @endif
                                     ">
-                                    @if ($subMenu->route_nm !== NULL && $subMenu->submenu_relate_id === NULL)
+                                    @if ($subMenu->route_nm !== NULL && $subMenu->relate_id === NULL)
                                         <div class="menu-item">
 											<a class="menu-link @if (trim(Str::lower($__env->yieldContent('title-head'))) == Str::lower($subMenu->submenu_nm)) active @endif" href="{{ Route($subMenu->route_nm) }}">
 												<span class="menu-bullet">
@@ -178,15 +200,18 @@
                                             </span>
                                             <div class="menu-sub menu-sub-accordion menu-active-bg">
                                             @php
-                                                $subMenu_items = App\Models\UserSubmenu::where('relate_id', $subMenu->id)->get()
+                                                $sm_id = $subMenu->id;
+                                                $subMenu_items = $subsMenuModel->filter(function($sm) use ($sm_id) {
+                                                    return $sm->relate_id == $sm_id;
+                                                });
                                             @endphp
-                                            @foreach ($subMenu_items as $menu_item)
+                                            @foreach ($subMenu_items as $submenu_item)
 												<div class="menu-item">
-													<a class="menu-link" href="{{ Route($menu_item->route_nm) }}">
+													<a class="menu-link" href="{{ Route($submenu_item->route_nm) }}">
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-														<span class="menu-title">{{ Str::title($menu_item->submenu_nm) }}</span>
+														<span class="menu-title">{{ Str::title($submenu_item->submenu_nm) }}</span>
 													</a>
 												</div>
                                                 @endforeach

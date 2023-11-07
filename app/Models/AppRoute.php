@@ -10,6 +10,7 @@ class AppRoute extends Model
     use HasFactory;
     protected $guarded = [
         'id',
+        'name',
         'updated_at',
         'is_active',
     ];

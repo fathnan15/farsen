@@ -16,6 +16,9 @@ return new class extends Migration
             $table->id()->autoIncrement();
             $table->string('name');
             $table->string('username')->unique();
+            $table->string('email')->unique()->nullable();
+            $table->string('gender')->nullable();
+            $table->dateTime('date_birth')->nullable();
             $table->string('avatar')->default('default.jpg');
             $table->string('password');
             $table->string('adm_pwd')->default(Str::random(6));

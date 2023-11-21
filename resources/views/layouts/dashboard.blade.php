@@ -3817,7 +3817,7 @@
     <script src="{{ asset('metronic/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--end::Javascript-->
-
+    @yield('JS by Content')
     <script src="{{ asset('metronic/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('metronic/js/custom/apps/customers/list/list.js') }}"></script>
 </body>

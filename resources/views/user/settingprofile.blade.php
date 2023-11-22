@@ -14,7 +14,7 @@
         </div>
         <!--begin::Card body-->
         <div class="card-body pt-0">
-            <form id="kt_profile_setting_form" action="{{ Route('user.profile.setting') }}" method="POST"
+            <form id="kt_profile_setting_form" action="{{ Route('profile.setting') }}" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-7 align-items-center">

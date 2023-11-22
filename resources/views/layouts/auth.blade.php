@@ -100,34 +100,33 @@
     <!--end::Javascript-->
 
     @if ($errors->any())
-        @if ($errors->any())
-            <script>
-                Swal.fire({
-                    text: "Sorry, looks like there are some errors detected, please try again.",
-                    icon: "error",
-                    buttonsStyling: !1,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn btn-primary",
-                    },
-                })
-            </script>
-        @endif
-        @if (session('success'))
-            <div id="sess_message" hidden>{{ session('success') }}</div>
-            <script>
-                var message = document.getElementById('sess_message').textContent;
-                Swal.fire({
-                    text: message,
-                    icon: "success",
-                    buttonsStyling: !1,
-                    confirmButtonText: "Ok, got it!",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    },
-                })
-            </script>
-        @endif
+        <script>
+            Swal.fire({
+                text: "Sorry, looks like there are some errors detected, please try again.",
+                icon: "error",
+                buttonsStyling: !1,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                },
+            })
+        </script>
+    @endif
+    @if (session('success'))
+        <div id="sess_message" hidden>{{ session('success') }}</div>
+        <script>
+            var message = document.getElementById('sess_message').textContent;
+            Swal.fire({
+                text: message,
+                icon: "success",
+                buttonsStyling: !1,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                },
+            })
+        </script>
+    @endif
 </body>
 <!--end::Body-->
 

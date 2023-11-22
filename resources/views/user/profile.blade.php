@@ -13,7 +13,7 @@
             </div>
             <!--end::Card title-->
             <!--begin::Action-->
-            <a href="{{ Route('user.profile.setting') }}" class="btn btn-primary align-self-center">Edit Profile</a>
+            <a href="{{ Route('profile.setting') }}" class="btn btn-primary align-self-center">Edit Profile</a>
             <!--end::Action-->
         </div>
         <!--begin::Card header-->

@@ -44,7 +44,7 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800">{{ $profile->name }}</span>
+                    <span class="fw-bolder fs-6 text-gray-800">{{ Str::title($profile->name) }}</span>
                 </div>
                 <!--end::Col-->
             </div>

@@ -13,7 +13,7 @@
             </div>
             <!--end::Card title-->
             <!--begin::Action-->
-            <a href="settings.html" class="btn btn-primary align-self-center">Edit Profile</a>
+            <a href="{{ Route('profile.setting') }}" class="btn btn-primary align-self-center">Edit Profile</a>
             <!--end::Action-->
         </div>
         <!--begin::Card header-->
@@ -22,11 +22,29 @@
             <!--begin::Row-->
             <div class="row mb-7">
                 <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Avatar</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <div class="image-input image-input-outline" data-kt-image-input="true"
+                        style="background-image: url({{ asset('metronic/media/avatars/blank.png') }})">
+                        <!--begin::Preview existing avatar-->
+                        <div class="image-input-wrapper w-125px h-125px"
+                            style="background-image: url({{ asset('app/images/avatars' . '/' . $profile->avatar) }})"></div>
+                    </div>
+                    <!--end::Preview existing avatar-->
+                </div>
+                <!--end::Col-->
+            </div>
+            <!--end::Row-->
+            <!--begin::Row-->
+            <div class="row mb-7">
+                <!--begin::Label-->
                 <label class="col-lg-4 fw-bold text-muted">Full Name</label>
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800">{{ $profile->name }}</span>
+                    <span class="fw-bolder fs-6 text-gray-800">{{ Str::title($profile->name) }}</span>
                 </div>
                 <!--end::Col-->
             </div>

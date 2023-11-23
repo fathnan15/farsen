@@ -142,7 +142,7 @@
                                         <!--end::Menu separator-->
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-5">
-                                            <a href="/logout"
+                                            <a href="{{ Route('logout') }}"
                                                 class="menu-link px-5 text-hover-danger bg-hover-secondary">Log Out</a>
                                         </div>
                                         <!--end::Menu item-->
@@ -355,7 +355,7 @@
                         <!--begin::Logo-->
                         <div class="d-flex align-items-center flex-equal">
                             <!--begin::Logo image-->
-                            <a href="/dashboard">
+                            <a href="{{ Route('dashboard') }}">
                                 <style>
                                     #logo:hover {
                                         filter: drop-shadow(2px 4px 6px blue);

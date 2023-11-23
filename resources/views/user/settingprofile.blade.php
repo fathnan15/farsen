@@ -22,7 +22,10 @@
                     <div class="col-md-9">
                         <!--begin::Image input-->
                         <div class="image-input image-input-outline" data-kt-image-input="true"
-                            style="background-image: url({{ asset('metronic/media/avatars/blank.png') }})">
+                            style="background-image: url(@if ($profile->gender == 'f') {{ asset('app/images/avatars/f_default.jpg') }}
+                            @else
+                            {{ asset('app/images/avatars/m_default.jpg') }} @endif
+                                )">
                             <!--begin::Preview existing avatar-->
                             <div class="image-input-wrapper w-125px h-125px"
                                 style="background-image: url({{ asset('app/images/avatars' . '/' . $profile->avatar) }})">
@@ -70,7 +73,7 @@
                     <label class="col-md-3 fw-bold text-muted" for="name">Full Name</label>
                     <div class="col-md-9">
                         <input type="text" name="name" class="form-control form-control-md mb-3 mb-lg-0"
-                            placeholder="First name" value="{{ $profile->name }}" />
+                            autocomplete="off" placeholder="First name" value="{{ Str::title($profile->name) }}" />
                         @error('name')
                             <small class="text-danger pl-3">
                                 {{ $message }}
@@ -118,7 +121,7 @@
                     <label class="col-md-3 fw-bold text-muted" for="email">Email</label>
                     <div class="col-md-9">
                         <input type="text" name="email" class="form-control form-control-md mb-3 mb-lg-0"
-                            placeholder="First name"
+                            autocomplete="off" placeholder="First name"
                             @if (old('email')) value="{{ old('email') }}"
                             @else
                             value="{{ $profile->email }}" @endif />

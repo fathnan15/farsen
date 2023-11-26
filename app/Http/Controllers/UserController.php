@@ -34,7 +34,6 @@ class UserController extends Controller
                     'email' => ['required', 'email:rfc,dns', 'min:6', Rule::unique('users', 'email')->ignore(auth()->id()),],
                 ]
             );
-            dd($validate);
             if (!$request->has('avatar')) {
                 $validate['name'] = Str::title($validate['name']);
                 $profile->update($validate);

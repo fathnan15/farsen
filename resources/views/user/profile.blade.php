@@ -30,7 +30,8 @@
                         style="background-image: url({{ asset('metronic/media/avatars/blank.png') }})">
                         <!--begin::Preview existing avatar-->
                         <div class="image-input-wrapper w-125px h-125px"
-                            style="background-image: url({{ asset('app/images/avatars' . '/' . $profile->avatar) }})"></div>
+                            style="background-image: url({{ Str::contains(auth()->user()->avatar, 'default') ? asset('app/images/default' . '/' . auth()->user()->avatar) : asset('app/images/avatars' . '/' . auth()->user()->avatar) }})">
+                        </div>
                     </div>
                     <!--end::Preview existing avatar-->
                 </div>

@@ -44,7 +44,7 @@
                         style="border-bottom: 1px solid #2d2d43">
                         <!--begin::Symbol-->
                         <div class="symbol symbol-50px">
-                            <img src="{{ (Str::contains(auth()->user()->avatar, 'default')) ? asset('app/images/default' . '/' . auth()->user()->avatar) : asset('app/images/avatars' . '/' . auth()->user()->avatar) }}"
+                            <img src="{{ Str::contains(auth()->user()->avatar, 'default') ? asset('app/images/default' . '/' . auth()->user()->avatar) : asset('app/images/avatars' . '/' . auth()->user()->avatar) }}"
                                 alt="avatar" />
                         </div>
                         <!--end::Symbol-->

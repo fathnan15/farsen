@@ -143,7 +143,8 @@ var KTCustomersList = (function () {
 					}),
 				(e = $('[data-kt-customer-table-filter="month"]')),
 				(o = document.querySelectorAll(
-					'[data-kt-customer-table-filter="payment_type"] [name="payment_type"]'
+					// '[data-kt-customer-table-filter="request_method"] [name="request_method"]'
+					'[data-kt-customer-table-filter="request_method"] [name="request_method"]'
 				)),
 				document
 					.querySelector('[data-kt-customer-table-filter="filter"]')
@@ -153,7 +154,7 @@ var KTCustomersList = (function () {
 						o.forEach((t) => {
 							t.checked && (c = t.value), "all" === c && (c = "");
 						});
-						const r = n + " " + c;
+						const r = c;
 						t.search(r).draw();
 					}),
 				c(),

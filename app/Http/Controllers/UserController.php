@@ -52,7 +52,7 @@ class UserController extends Controller
                 User::where('id', Auth::id())->update($validate);
             }
 
-            session()->flash('success', 'User has been updated!');
+            session()->flash('success', 'Profile Details has been successfully updated!');
             return redirect()->route('profile');
         };
 

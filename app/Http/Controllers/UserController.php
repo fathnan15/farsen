@@ -65,7 +65,7 @@ class UserController extends Controller
     public function accountSetting(Request $request)
     {
         if (request()->isMethod('POST')) {
-            $validate = request()->validate([
+            request()->validate([
                 'old_password' => ['required'],
                 'new_password' => ['required', 'confirmed', Password::min(6)],
             ]);

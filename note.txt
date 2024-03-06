@@ -276,6 +276,17 @@ AppRoute::create([
 ])
 
 AppRoute::create([
+    'http_req'      =>  'post',
+    'uri'           =>  'adm/app/route',
+    'controller'    =>  'adm\AppController',
+    'action'        =>  'route',
+    'name'          =>  'app.route',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
     'http_req'      =>  'get',
     'uri'           =>  'adm/app/menumanage',
     'controller'    =>  'adm\MenuManageController',

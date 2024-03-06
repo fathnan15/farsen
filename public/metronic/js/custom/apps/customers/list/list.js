@@ -143,7 +143,6 @@ var KTCustomersList = (function () {
 					}),
 				(e = $('[data-kt-customer-table-filter="month"]')),
 				(o = document.querySelectorAll(
-					// '[data-kt-customer-table-filter="request_method"] [name="request_method"]'
 					'[data-kt-customer-table-filter="request_method"] [name="request_method"]'
 				)),
 				document

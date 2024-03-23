@@ -202,29 +202,23 @@
                             }),
                         },
                     })),
-                    $(e.querySelector('[name="country"]')).on(
-                            "change",
-                            function() {
-                                t.revalidateField("country");
-                            }
-                        ),
-                        e.addEventListener("click", function(n) {
-                            n.preventDefault(),
-                                i.validate().then(function(i) {
-                                    "Invalid" == i
-                                        ?
-                                        Swal.fire({
-                                            text: "Sorry, looks like there are some errors detected, please try again.",
-                                            icon: "error",
-                                            buttonsStyling: !1,
-                                            confirmButtonText: "Ok, got it!",
-                                            customClass: {
-                                                confirmButton: "btn btn-primary",
-                                            },
-                                        }) :
-                                        t.submit();
-                                });
-                        });
+                    e.addEventListener("click", function(n) {
+                        n.preventDefault(),
+                            i.validate().then(function(i) {
+                                "Invalid" == i
+                                    ?
+                                    Swal.fire({
+                                        text: "Sorry, looks like there are some errors detected, please try again.",
+                                        icon: "error",
+                                        buttonsStyling: !1,
+                                        confirmButtonText: "Ok, got it!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary",
+                                        },
+                                    }) :
+                                    t.submit();
+                            });
+                    });
                 },
             };
         })();

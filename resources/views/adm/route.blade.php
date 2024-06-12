@@ -437,7 +437,7 @@
                 <!--begin::Modal header-->
                 <div class="modal-header">
                     <!--begin::Modal title-->
-                    <h2 class="fw-bolder">Export Customers</h2>
+                    <h2 class="fw-bolder">Edit Route route.name</h2>
                     <!--end::Modal title-->
                     <!--begin::Close-->
                     <div id="kt_customers_export_close" class="btn btn-icon btn-sm btn-active-icon-primary">
@@ -460,70 +460,41 @@
                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                     <!--begin::Form-->
                     <form id="kt_customers_export_form" class="form" action="#">
+                        @csrf
                         <!--begin::Input group-->
-                        <div class="fv-row mb-10">
+                        <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="fs-5 fw-bold form-label mb-5">Select Date Range:</label>
+                            <label class="fs-5 fw-bold form-label mb-5">HTTP Request Method:</label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input class="form-control form-control-solid" placeholder="Pick a date" name="date" />
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-10">
-                            <!--begin::Label-->
-                            <label class="fs-5 fw-bold form-label mb-5">Select Export Format:</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <select data-control="select2" data-placeholder="Select a format" data-hide-search="true"
+                            <select data-control="select2" data-placeholder="Select a Method..." data-hide-search="true"
                                 name="format" class="form-select form-select-solid">
-                                <option value="excell">Excel</option>
-                                <option value="pdf">PDF</option>
-                                <option value="cvs">CVS</option>
-                                <option value="zip">ZIP</option>
+                                <option value="get" selected>Get</option>
+                                <option value="post">Post</option>
                             </select>
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
                         <!--begin::Row-->
-                        <div class="row fv-row mb-15">
+                        <div class="fv-row mb-7">
                             <!--begin::Label-->
-                            <label class="fs-5 fw-bold form-label mb-5">Payment Type:</label>
+                            <label class="fs-6 fw-bold mb-2">
+                                <span class="required">Route Name</span>
+                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                    title="Must Valid Route Name"></i>
+                            </label>
                             <!--end::Label-->
-                            <!--begin::Radio group-->
-                            <div class="d-flex flex-column">
-                                <!--begin::Radio button-->
-                                <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                    <input class="form-check-input" type="checkbox" value="1" checked="checked"
-                                        name="request_method" />
-                                    <span class="form-check-label text-gray-600 fw-bold">All</span>
-                                </label>
-                                <!--end::Radio button-->
-                                <!--begin::Radio button-->
-                                <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                    <input class="form-check-input" type="checkbox" value="2" checked="checked"
-                                        name="request_method" />
-                                    <span class="form-check-label text-gray-600 fw-bold">Visa</span>
-                                </label>
-                                <!--end::Radio button-->
-                                <!--begin::Radio button-->
-                                <label class="form-check form-check-custom form-check-sm form-check-solid mb-3">
-                                    <input class="form-check-input" type="checkbox" value="3"
-                                        name="request_method" />
-                                    <span class="form-check-label text-gray-600 fw-bold">Mastercard</span>
-                                </label>
-                                <!--end::Radio button-->
-                                <!--begin::Radio button-->
-                                <label class="form-check form-check-custom form-check-sm form-check-solid">
-                                    <input class="form-check-input" type="checkbox" value="4"
-                                        name="request_method" />
-                                    <span class="form-check-label text-gray-600 fw-bold">American Express</span>
-                                </label>
-                                <!--end::Radio button-->
-                            </div>
-                            <!--end::Input group-->
+                            <!--begin::Input-->
+                            <input type="text" class="form-control form-control-solid" placeholder="" name="name"
+                                value="{{ old('name') }}" />
+                            @error('name')
+                                <small class="text-danger pl-3">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                            <!--end::Input-->
                         </div>
+                        <!--end::Input group-->
                         <!--end::Row-->
                         <!--begin::Actions-->
                         <div class="text-center">
@@ -551,9 +522,10 @@
 
 @section('JS by Content')
     <script src="{{ asset('metronic/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('metronic/js/custom/apps/customers/list/export.js') }}"></script>
+    {{-- <script src="{{ asset('metronic/js/custom/apps/customers/list/export.js') }}"></script> --}}
     <script src="{{ asset('metronic/js/custom/apps/customers/list/list.js') }}"></script>
     {{-- <script src="{{ asset('metronic/js/custom/apps/customers/add.js') }}"></script> --}}
+    <script src="{{ asset('app/js/adm/edit_route.js') }}"></script>
     <script src="{{ asset('app/js/adm/add_route.js') }}"></script>
 @endsection
 

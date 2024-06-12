@@ -73,6 +73,27 @@ UserAccess::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
+UserAccess::create([
+    'user_id' => 1,
+    'menu_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserAccess::create([
+    'user_id' => 2,
+    'menu_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserAccess::create([
+    'user_id' => 3,
+    'menu_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
 UserMenu::create([
     'menu_nm' => 'administrator',
     'path' => 'administrator',
@@ -83,6 +104,13 @@ UserMenu::create([
 UserMenu::create([
     'menu_nm' => 'user',
     'path' => 'user',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserMenu::create([
+    'menu_nm' => 'warehouse',
+    'path' => 'warehouse',
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
@@ -127,6 +155,13 @@ UserSubmenu::create([
     'created_at' => now('Asia/Jakarta'),
 ])
 
+UserSubmenu::create([
+    'submenu_nm' => 'Inventory',
+    'route_nm'  => '',
+    'menu_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
 
 AppRoute::create([
     'http_req'      =>  'get',

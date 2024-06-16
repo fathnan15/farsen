@@ -1,64 +1,50 @@
 "use strict";
-var KTModalCustomersAdd = (function () {
+var ModalRouteAdd = (function () {
     var t, e, o, n, r, i;
     return {
         init: function () {
             (i = new bootstrap.Modal(
-                document.querySelector("#kt_modal_add_customer")
+                document.querySelector("#modal_add_route")
             )),
-                (r = document.querySelector("#kt_modal_add_customer_form")),
-                (t = r.querySelector("#kt_modal_add_customer_submit")),
-                (e = r.querySelector("#kt_modal_add_customer_cancel")),
-                (o = r.querySelector("#kt_modal_add_customer_close")),
+                (r = document.querySelector("#modal_add_route_form")),
+                (t = r.querySelector("#modal_add_route_submit")),
+                (e = r.querySelector("#modal_add_route_cancel")),
+                (o = r.querySelector("#modal_add_route_close")),
                 (n = FormValidation.formValidation(r, {
                     fields: {
+                        http_req: {
+                            validators: {
+                                notEmpty: {
+                                    message: "HTTP Request Method is required",
+                                },
+                            },
+                        },
                         name: {
                             validators: {
                                 notEmpty: {
-                                    message: "Customer name is required",
+                                    message: "Route Name is required",
                                 },
                             },
                         },
-                        email: {
+                        uri: {
                             validators: {
                                 notEmpty: {
-                                    message: "Customer email is required",
+                                    message: "URI is required",
                                 },
                             },
                         },
-                        "first-name": {
+                        controller: {
                             validators: {
-                                notEmpty: { message: "First name is required" },
+                                notEmpty: {
+                                    message: "Controller Name is required",
+                                },
                             },
                         },
-                        "last-name": {
+                        action: {
                             validators: {
-                                notEmpty: { message: "Last name is required" },
-                            },
-                        },
-                        country: {
-                            validators: {
-                                notEmpty: { message: "Country is required" },
-                            },
-                        },
-                        address1: {
-                            validators: {
-                                notEmpty: { message: "Address 1 is required" },
-                            },
-                        },
-                        city: {
-                            validators: {
-                                notEmpty: { message: "City is required" },
-                            },
-                        },
-                        state: {
-                            validators: {
-                                notEmpty: { message: "State is required" },
-                            },
-                        },
-                        postcode: {
-                            validators: {
-                                notEmpty: { message: "Postcode is required" },
+                                notEmpty: {
+                                    message: "Controller Method is required",
+                                },
                             },
                         },
                     },
@@ -71,48 +57,13 @@ var KTModalCustomersAdd = (function () {
                         }),
                     },
                 })),
-                $(r.querySelector('[name="country"]')).on(
-                    "change",
-                    function () {
-                        n.revalidateField("country");
-                    }
-                ),
                 t.addEventListener("click", function (e) {
                     e.preventDefault(),
                         n &&
                             n.validate().then(function (e) {
                                 console.log("validated!"),
-                                    "Valid" == e
-                                        ? (t.setAttribute(
-                                              "data-kt-indicator",
-                                              "on"
-                                          ),
-                                          (t.disabled = !0),
-                                          setTimeout(function () {
-                                              t.removeAttribute(
-                                                  "data-kt-indicator"
-                                              ),
-                                                  Swal.fire({
-                                                      text: "Form has been successfully submitted!",
-                                                      icon: "success",
-                                                      buttonsStyling: !1,
-                                                      confirmButtonText:
-                                                          "Ok, got it!",
-                                                      customClass: {
-                                                          confirmButton:
-                                                              "btn btn-primary",
-                                                      },
-                                                  }).then(function (e) {
-                                                      e.isConfirmed &&
-                                                          (i.hide(),
-                                                          (t.disabled = !1),
-                                                          (window.location =
-                                                              r.getAttribute(
-                                                                  "data-kt-redirect"
-                                                              )));
-                                                  });
-                                          }, 2e3))
-                                        : Swal.fire({
+                                    "Invalid" == e
+                                        ? Swal.fire({
                                               text: "Sorry, looks like there are some errors detected, please try again.",
                                               icon: "error",
                                               buttonsStyling: !1,
@@ -121,7 +72,8 @@ var KTModalCustomersAdd = (function () {
                                                   confirmButton:
                                                       "btn btn-primary",
                                               },
-                                          });
+                                          })
+                                          : r.submit();
                             });
                 }),
                 e.addEventListener("click", function (t) {
@@ -184,5 +136,5 @@ var KTModalCustomersAdd = (function () {
     };
 })();
 KTUtil.onDOMContentLoaded(function () {
-    KTModalCustomersAdd.init();
+    ModalRouteAdd.init();
 });

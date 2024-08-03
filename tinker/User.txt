@@ -1,0 +1,34 @@
+#create Users
+
+User::create([
+    'name' => 'Admin',
+    'username' => 'admin',
+    'password' => bcrypt('admin123'),
+    'email'    => 'admin@farsen.com',
+    'gender'   => 'u',
+    'date_birth'   => '1997-03-15',
+    'role_id'  => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+User::create([
+    'name' => 'Fathnan Badarudin Nuri',
+    'username' => 'fathnan',
+    'email'    => 'fathnan@farsen.com',
+    'gender'   => 'm',
+    'date_birth'   => '1997-03-15',
+    'password' => bcrypt('fathnan123'),
+    'role_id'  => 2,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+User::create([
+    'name' => 'Annisa Rahma Fitri Zulma',
+    'username' => 'rahma',
+    'email'    => 'rahma@farsen.com',
+    'gender'   => 'f',
+    'date_birth'   => '1990-08-02',
+    'password' => bcrypt('rahma123'),
+    'role_id'  => 2,
+    'created_at' => now('Asia/Jakarta'),
+])

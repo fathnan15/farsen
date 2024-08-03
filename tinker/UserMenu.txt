@@ -1,0 +1,20 @@
+UserMenu::create([
+    'menu_nm' => 'administrator',
+    'path' => 'administrator',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserMenu::create([
+    'menu_nm' => 'user',
+    'path' => 'user',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserMenu::create([
+    'menu_nm' => 'warehouse',
+    'path' => 'warehouse',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])

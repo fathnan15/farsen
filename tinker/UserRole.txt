@@ -1,0 +1,11 @@
+UserRole::create([
+    'role_nm' => 'administrator',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserRole::create([
+    'role_nm' => 'member',
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])

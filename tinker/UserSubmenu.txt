@@ -1,0 +1,47 @@
+UserSubmenu::create([
+    'submenu_nm' => 'Users',
+    'route_nm'  => 'users.management',
+    'menu_id' => 1,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+
+UserSubmenu::create([
+    'submenu_nm' => 'profile',
+    'route_nm'  => 'profile',
+    'menu_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Settings',
+    'menu_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Account Setting',
+    'route_nm'  => 'account.setting',
+    'relate_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Profile Setting',
+    'route_nm'  => 'profile.setting',
+    'relate_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Inventory',
+    'route_nm'  => '',
+    'menu_id' => 3,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])

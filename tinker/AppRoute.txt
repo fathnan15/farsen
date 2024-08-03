@@ -1,0 +1,120 @@
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'login',
+    'controller'    =>  'AuthController',
+    'action'        =>  'index',
+    'name'          =>  'login',
+    'is_auth'       =>  0,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'post',
+    'uri'           =>  'login',
+    'controller'    =>  'AuthController',
+    'action'        =>  'authenticate',
+    'name'          =>  'login',
+    'is_auth'       =>  0,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'logout',
+    'controller'    =>  'AuthController',
+    'action'        =>  'logout',
+    'name'          =>  'logout',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'dashboard',
+    'controller'    =>  'DashboardController',
+    'action'        =>  'index',
+    'name'          =>  'dashboard',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'administrator/users',
+    'controller'    =>  'AdministratorController',
+    'action'        =>  'users',
+    'name'          =>  'users.management',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'user/profile',
+    'controller'    =>  'UserController',
+    'action'        =>  'profile',
+    'name'          =>  'profile',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'user/settings/account',
+    'controller'    =>  'UserController',
+    'action'        =>  'accountSetting',
+    'name'          =>  'account.setting',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'post',
+    'uri'           =>  'user/settings/account',
+    'controller'    =>  'UserController',
+    'action'        =>  'accountSetting',
+    'name'          =>  'account.setting',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'user/settings/profile',
+    'controller'    =>  'UserController',
+    'action'        =>  'profileSetting',
+    'name'          =>  'profile.setting',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'post',
+    'uri'           =>  'user/settings/profile',
+    'controller'    =>  'UserController',
+    'action'        =>  'profileSetting',
+    'name'          =>  'profile.setting',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'warehouse/inventory',
+    'controller'    =>  'warehouse\InventoryController',
+    'action'        =>  'index',
+    'name'          =>  'warehouse.inventory',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta')
+])

@@ -1,4 +1,5 @@
 <?php
+
 use App\Models\AppRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -12,16 +13,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::redirect('/', 'dashboard');
 
 try {
-    $routes = AppRoute::all();
+    $routes = AppRoute::all()->where('is_active', 1);
     foreach ($routes as $route) {
         if ($route->is_auth) {
-            Route::match([$route->http_req], $route->uri, [join('\\',['App\Http\Controllers', $route->controller]), $route->action])->name($route->name)->middleware('auth');
-        }
-        else {
-            Route::match([$route->http_req], $route->uri, [join('\\',['App\Http\Controllers', $route->controller]), $route->action])->name($route->name)->middleware('guest');
+            Route::match([$route->http_req], $route->uri, [join('\\', ['App\Http\Controllers', $route->controller]), $route->action])->name($route->name)->middleware('auth');
+        } else {
+            Route::match([$route->http_req], $route->uri, [join('\\', ['App\Http\Controllers', $route->controller]), $route->action])->name($route->name)->middleware('guest');
         }
     }
 } catch (Exception $e) {

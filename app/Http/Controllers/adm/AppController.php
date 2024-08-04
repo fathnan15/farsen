@@ -29,8 +29,6 @@ class AppController extends Controller
                 'created_at' => now('Asia/Jakarta')
             ];
             $input = array_merge($default_input, $request->input());
-            // array_merge($request->input(), );
-            // dd($input);
             AppRoute::create($input);
 
 
@@ -42,8 +40,55 @@ class AppController extends Controller
         return view('adm.route', ['routes' => $routes]);
     }
 
-    public function routeDetails($id)
+    public function updateRoute(Request $request)
     {
-        dd($id);
+        if ($request->has('is_active')) {
+            $request->validate([
+                'id' => 'required|exists:app_routes,id',
+                'is_active' => 'required|boolean',
+            ]);
+
+            $route = AppRoute::find($request->id);
+            $route->is_active = $request->is_active;
+            $route->updated_by = Auth::id();
+            $route->save();
+
+            return response()->json(['success' => true, 'message' => 'Route status updated successfully.']);
+        }
+
+        if ($request->has('is_auth')) {
+            $request->validate([
+                'id' => 'required|exists:app_routes,id',
+                'is_auth' => 'required|boolean',
+            ]);
+
+            $route = AppRoute::find($request->id);
+            $route->is_auth = $request->is_auth;
+            $route->updated_by = Auth::id();
+            $route->save();
+
+            return response()->json(['success' => true, 'message' => 'Route middleware updated successfully.']);
+        }
+
+        $request->validate([
+            'id' => 'required|exists:app_routes,id',
+            'name' => 'required|string|max:255',
+            'http_req' => 'required|string|in:get,post',
+            'uri' => 'required|string|max:255',
+            'controller' => 'required|string|max:255',
+            'action' => 'required|string|max:255',
+        ]);
+
+        $route = AppRoute::find($request->id);
+
+        $route->http_req = $request->http_req;
+        $route->uri = $request->uri;
+        $route->controller = $request->controller;
+        $route->action = $request->action;
+        $route->name = $request->name;
+        $route->updated_by = Auth::id();
+        $route->save();
+
+        return response()->json(['success' => true, 'message' => 'Route updated successfully.', ['']]);
     }
 }

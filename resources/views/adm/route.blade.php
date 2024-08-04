@@ -17,7 +17,7 @@
                     </span>
                     <!--end::Svg Icon-->
                     <input type="text" data-kt-customer-table-filter="search"
-                        class="form-control form-control-solid w-250px ps-15" placeholder="Search Customers" />
+                        class="form-control form-control-solid w-250px ps-15" placeholder="Search Route" />
                 </div>
                 <!--end::Search-->
             </div>
@@ -132,13 +132,15 @@
                         <th class="w-10px pe-2">
                             <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
                                 <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                    data-kt-check-target="#kt_customers_table .form-check-input" value="1" />
+                                    data-kt-check-target="#kt_customers_table .form-check-input" value="1" disabled
+                                    hidden />
                             </div>
                         </th>
                         <th class="min-w-125px">Req:Route Name</th>
                         <th class="min-w-125px">URI</th>
                         <th class="min-w-125px">Controller:Method</th>
                         <th class="min-w-125px">Last Modified</th>
+                        <th class="min-w-50px">Middleware</th>
                         <th class="min-w-50px">Status</th>
                         <th class="text-end min-w-70px">Actions</th>
                     </tr>
@@ -155,11 +157,12 @@
                                 $hrefUri = route($route->name);
                             }
                         @endphp
-                        <tr>
+                        <tr id="route_{{ $route->id }}">
                             <!--begin::Checkbox-->
                             <td>
                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" value="{{ $route->id }}" />
+                                    <input class="form-check-input" type="checkbox" value="{{ $route->id }}" disabled
+                                        hidden />
                                 </div>
                             </td>
                             <!--end::Checkbox-->
@@ -191,27 +194,60 @@
                             <!--end::Date=-->
                             <!--begin::Is Active=-->
                             <td>
-                                <span
-                                    class="badge {{ $route->is_active == 1 ? 'badge-light-success' : 'badge-light-danger' }}">
-                                    @switch($route->is_active)
-                                        @case(1)
-                                            Active
-                                        @break
+                                <div class="col-xl-9">
+                                    <div class="middleware form-check form-switch form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="{{ $route->id }}"
+                                            id="routeStatus_{{ $route->id }}" name="is_auth"
+                                            {{ $route->is_auth == 1 ? 'checked' : '' }}>
+                                        <label class="form-check-label fw-bold text-gray-400 ms-3"
+                                            for="routeStatus_{{ $route->id }}">
+                                            @switch($route->is_auth)
+                                                @case(1)
+                                                    Auth
+                                                @break
 
-                                        @case(0)
-                                            Inactive
-                                        @break
+                                                @case(0)
+                                                    Guest
+                                                @break
 
-                                        @default
-                                    @endswitch
-                                </span>
+                                                @default
+                                            @endswitch
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-xl-9">
+                                    <div class="status form-check form-switch form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="{{ $route->id }}"
+                                            id="routeStatus_{{ $route->id }}" name="is_active"
+                                            {{ $route->is_active == 1 ? 'checked' : '' }}>
+                                        <label class="form-check-label fw-bold text-gray-400 ms-3"
+                                            for="routeStatus_{{ $route->id }}">
+                                            @switch($route->is_active)
+                                                @case(1)
+                                                    Active
+                                                @break
+
+                                                @case(0)
+                                                    Inactive
+                                                @break
+
+                                                @default
+                                            @endswitch
+                                        </label>
+                                    </div>
+                                </div>
                             </td>
                             <!--end::Is Active=-->
                             <!--begin::Action=-->
                             <td class="text-end">
                                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
                                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                                    data-bs-toggle="modal" id="actions"
+                                    data-bs-toggle="modal" id="edit_route" data-id="{{ $route->id }}"
+                                    data-name="{{ $route->name }}" data-http_req="{{ $route->http_req }}"
+                                    data-uri="{{ $route->uri }}" data-controller="{{ $route->controller }}"
+                                    data-action="{{ $route->action }}" data-url ="{{ Route('app.route.update') }}"
                                     data-bs-target="#kt_customers_export_modal">Edit
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                     <span class="svg-icon svg-icon-5 m-0">
@@ -255,281 +291,111 @@
     <!--end::Card-->
 
     <!--begin::Modals-->
-    <!--begin::Modal - Route - Add-->
-    <div class="modal fade" id="modal_add_route" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Form-->
-                <form class="form" action="{{ Route('app.route') }}" method="POST" id="modal_add_route_form">
-                    @csrf
-                    <!--begin::Modal header-->
-                    <div class="modal-header" id="modal_add_route_header">
-                        <!--begin::Modal title-->
-                        <h2 class="fw-bolder">Add New Route</h2>
-                        <!--end::Modal title-->
-                        <!--begin::Close-->
-                        <div id="modal_add_route_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                            <span class="svg-icon svg-icon-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
-                                        transform="rotate(-45 6 17.3137)" fill="black" />
-                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                        transform="rotate(45 7.41422 6)" fill="black" />
-                                </svg>
-                            </span>
-                            <!--end::Svg Icon-->
-                        </div>
-                        <!--end::Close-->
-                    </div>
-                    <!--end::Modal header-->
-                    <!--begin::Modal body-->
-                    <div class="modal-body py-10 px-lg-17">
-                        <!--begin::Scroll-->
-                        <div class="scroll-y me-n7 pe-7" id="modal_add_route_scroll" data-kt-scroll="true"
-                            data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto"
-                            data-kt-scroll-dependencies="#modal_add_route_header"
-                            data-kt-scroll-wrappers="#modal_add_route_scroll" data-kt-scroll-offset="300px">
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7">
-                                <!--begin::Label-->
-                                <label class="fs-6 fw-bold mb-2">
-                                    <span class="required">HTTP Request Method</span>
-                                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                        title="HTTP Request Method"></i>
-                                </label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <select name="http_req" aria-label="Select a Http Request Method" data-control="select2"
-                                    data-placeholder="Select a Http Request Method..."
-                                    data-dropdown-parent="#modal_add_route"
-                                    class="form-select form-select-solid fw-bolder">
-                                    <option value="">Select a Method...</option>
-                                    <option value="get">Get</option>
-                                    <option value="post">Post</option>
-                                </select>
-                                <!--end::Input-->
-                                @error('http_req')
-                                    <small class="text-danger pl-3">
-                                        {{ $message }}
-                                    </small>
-                                @enderror
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7">
-                                <!--begin::Label-->
-                                <label class="fs-6 fw-bold mb-2">
-                                    <span class="required">Route Name</span>
-                                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                        title="Must Valid Route Name"></i>
-                                </label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    name="name" value="{{ old('name') }}" />
-                                @error('name')
-                                    <small class="text-danger pl-3">
-                                        {{ $message }}
-                                    </small>
-                                @enderror
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7">
-                                <!--begin::Label-->
-                                <label class="fs-6 fw-bold mb-2">
-                                    <span class="required">URI</span>
-                                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                        title="Must Valid URI ex: adm/app/route"></i>
-                                </label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" class="form-control form-control-solid" placeholder=""
-                                    name="uri" />
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-                            <div class="row g-9 mb-7">
-                                <!--begin::Col-->
-                                <div class="col-md-6 fv-row">
-                                    <!--begin::Label-->
-                                    <label class="required fs-6 fw-bold mb-2">Controller Name</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="" name="controller" />
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Col-->
-                                <!--begin::Col-->
-                                <div class="col-md-6 fv-row">
-                                    <!--begin::Label-->
-                                    <label class="required fs-6 fw-bold mb-2">Controller Method</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input class="form-control form-control-solid" placeholder="" name="action" />
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Col-->
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="fv-row mb-7">
-                                <!--begin::Wrapper-->
-                                <div class="d-flex flex-stack">
-                                    <!--begin::Label-->
-                                    <div class="me-5">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold">Does the route require user authentication?</label>
-                                        <!--end::Label-->
-                                    </div>
-                                    <!--end::Label-->
-                                    <!--begin::Switch-->
-                                    <label class="form-check form-switch form-check-custom form-check-solid">
-                                        <!--begin::Input-->
-                                        <input class="form-check-input" name="is_auth" type="checkbox" value="1"
-                                            id="modal_add_route_is_auth" checked="checked" />
-                                        <!--end::Input-->
-                                        <!--begin::Label-->
-                                        <span class="form-check-label fw-bold text-muted"
-                                            for="modal_add_route_is_auth">Yes</span>
-                                        <!--end::Label-->
-                                    </label>
-                                    <!--end::Switch-->
-                                </div>
-                                <!--begin::Wrapper-->
-                            </div>
-                            <!--end::Input group-->
-                        </div>
-                        <!--end::Scroll-->
-                    </div>
-                    <!--end::Modal body-->
-                    <!--begin::Modal footer-->
-                    <div class="modal-footer flex-center">
-                        <!--begin::Button-->
-                        <button type="reset" id="modal_add_route_cancel" class="btn btn-light me-3">Discard</button>
-                        <!--end::Button-->
-                        <!--begin::Button-->
-                        <button type="submit" id="modal_add_route_submit" class="btn btn-primary">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                        <!--end::Button-->
-                    </div>
-                    <!--end::Modal footer-->
-                </form>
-                <!--end::Form-->
-            </div>
-        </div>
-    </div>
-    <!--end::Modal - Route - Add-->
-    <!--begin::Modal - Adjust Balance-->
-    <div class="modal fade" id="kt_customers_export_modal" tabindex="-1" aria-hidden="true">
-        <!--begin::Modal dialog-->
-        <div class="modal-dialog modal-dialog-centered mw-650px">
-            <!--begin::Modal content-->
-            <div class="modal-content">
-                <!--begin::Modal header-->
-                <div class="modal-header">
-                    <!--begin::Modal title-->
-                    <h2 class="fw-bolder">Edit Route route.name</h2>
-                    <!--end::Modal title-->
-                    <!--begin::Close-->
-                    <div id="kt_customers_export_close" class="btn btn-icon btn-sm btn-active-icon-primary">
-                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                        <span class="svg-icon svg-icon-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
-                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
-                                    transform="rotate(-45 6 17.3137)" fill="black" />
-                                <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                    transform="rotate(45 7.41422 6)" fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </div>
-                    <!--end::Close-->
-                </div>
-                <!--end::Modal header-->
-                <!--begin::Modal body-->
-                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                    <!--begin::Form-->
-                    <form id="kt_customers_export_form" class="form" action="#">
-                        @csrf
-                        <!--begin::Input group-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-5 fw-bold form-label mb-5">HTTP Request Method:</label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <select data-control="select2" data-placeholder="Select a Method..." data-hide-search="true"
-                                name="format" class="form-select form-select-solid">
-                                <option value="get" selected>Get</option>
-                                <option value="post">Post</option>
-                            </select>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--begin::Row-->
-                        <div class="fv-row mb-7">
-                            <!--begin::Label-->
-                            <label class="fs-6 fw-bold mb-2">
-                                <span class="required">Route Name</span>
-                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                    title="Must Valid Route Name"></i>
-                            </label>
-                            <!--end::Label-->
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" placeholder="" name="name"
-                                value="{{ old('name') }}" />
-                            @error('name')
-                                <small class="text-danger pl-3">
-                                    {{ $message }}
-                                </small>
-                            @enderror
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Input group-->
-                        <!--end::Row-->
-                        <!--begin::Actions-->
-                        <div class="text-center">
-                            <button type="reset" id="kt_customers_export_cancel"
-                                class="btn btn-light me-3">Discard</button>
-                            <button type="submit" id="kt_customers_export_submit" class="btn btn-primary">
-                                <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                        </div>
-                        <!--end::Actions-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-                <!--end::Modal body-->
-            </div>
-            <!--end::Modal content-->
-        </div>
-        <!--end::Modal dialog-->
-    </div>
-    <!--end::Modal - New Card-->
+    <!--begin::Add Route-->
+    @include('adm.modal.add_route')
+    <!--end::Add Route-->
+    <!--begin::Edit Route-->
+    @include('adm.modal.edit_route')
+    <!--end::Edit Route-->
     <!--end::Modals-->
 @endsection
 
 @section('JS by Content')
+    <!--begin::Metronic JS-->
     <script src="{{ asset('metronic/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    {{-- <script src="{{ asset('metronic/js/custom/apps/customers/list/list.js') }}"></script> --}}
     {{-- <script src="{{ asset('metronic/js/custom/apps/customers/list/export.js') }}"></script> --}}
-    <script src="{{ asset('metronic/js/custom/apps/customers/list/list.js') }}"></script>
     {{-- <script src="{{ asset('metronic/js/custom/apps/customers/add.js') }}"></script> --}}
+    <!--end::Metronic JS-->
+
+    <!--begin::App JS -->
     <script src="{{ asset('app/js/adm/edit_route.js') }}"></script>
     <script src="{{ asset('app/js/adm/add_route.js') }}"></script>
+    <!--end::App JS -->
 @endsection
 
 @section('javascript')
+    <script>
+        "use strict";
+
+        var KTCustomersList = (function() {
+            var t, e, o, n;
+
+            const initTable = () => {
+                n.querySelectorAll("tbody tr").forEach((t) => {
+                    const e = t.querySelectorAll("td"),
+                        o = moment(e[5].innerHTML, "DD MMM YYYY, LT").format();
+                    e[5].setAttribute("data-order", o);
+                });
+
+                t = $(n).DataTable({
+                    info: !1,
+                    order: [],
+                    columnDefs: [{
+                            orderable: !1,
+                            targets: 0
+                        },
+                        {
+                            orderable: !1,
+                            targets: 6
+                        },
+                    ],
+                });
+            };
+
+            const handleSearch = () => {
+                document
+                    .querySelector('[data-kt-customer-table-filter="search"]')
+                    .addEventListener("keyup", function(e) {
+                        t.search(e.target.value).draw();
+                    });
+            };
+
+            const handleFilters = () => {
+                e = $('[data-kt-customer-table-filter="month"]');
+                o = document.querySelectorAll(
+                    '[data-kt-customer-table-filter="request_method"] [name="request_method"]'
+                );
+
+                document
+                    .querySelector('[data-kt-customer-table-filter="filter"]')
+                    .addEventListener("click", function() {
+                        const n = e.val();
+                        let c = "";
+                        o.forEach((t) => {
+                            t.checked && (c = t.value), "all" === c && (c = "");
+                        });
+                        const r = c;
+                        t.search(r).draw();
+                    });
+
+                document
+                    .querySelector('[data-kt-customer-table-filter="reset"]')
+                    .addEventListener("click", function() {
+                        e.val(null).trigger("change");
+                        (o[0].checked = !0);
+                        t.search("").draw();
+                    });
+            };
+
+            return {
+                init: function() {
+                    n = document.querySelector("#kt_customers_table");
+
+                    if (n) {
+                        initTable();
+                        handleSearch();
+                        handleFilters();
+                    }
+                },
+            };
+        })();
+
+        KTUtil.onDOMContentLoaded(function() {
+            KTCustomersList.init();
+        });
+    </script>
+
     @if ($errors->any())
         <script>
             document.addEventListener("DOMContentLoaded", function() {

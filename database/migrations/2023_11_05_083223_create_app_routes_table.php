@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_auth')->default(1);
             $table->foreignId('created_by')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');
+            $table->foreignId('updated_by')->comment('relate to table:users, column:id');
             $table->dateTime('updated_at')->default(now('Asia/Jakarta'));
             $table->boolean('is_active')->default(1);
         });

@@ -6,7 +6,8 @@ AppRoute::create([
     'name'          =>  'login',
     'is_auth'       =>  0,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -17,7 +18,8 @@ AppRoute::create([
     'name'          =>  'login',
     'is_auth'       =>  0,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -28,7 +30,8 @@ AppRoute::create([
     'name'          =>  'logout',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -39,7 +42,8 @@ AppRoute::create([
     'name'          =>  'dashboard',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -50,7 +54,8 @@ AppRoute::create([
     'name'          =>  'users.management',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -61,7 +66,8 @@ AppRoute::create([
     'name'          =>  'profile',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -72,7 +78,8 @@ AppRoute::create([
     'name'          =>  'account.setting',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -83,7 +90,8 @@ AppRoute::create([
     'name'          =>  'account.setting',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -94,7 +102,8 @@ AppRoute::create([
     'name'          =>  'profile.setting',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -105,7 +114,8 @@ AppRoute::create([
     'name'          =>  'profile.setting',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])
 
 AppRoute::create([
@@ -116,5 +126,6 @@ AppRoute::create([
     'name'          =>  'warehouse.inventory',
     'is_auth'       =>  1,
     'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta')
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    =>  1
 ])

@@ -1,16 +1,18 @@
 "use strict";
 
-var KTCustomersExport = (function () {
-    var t, e, n, o, r, i, a, u;
+var KTEditRoute = (function () {
+    var modalElement, modalInstance, formElement, submitButton, cancelButton, closeButton, formValidation, apiUrl;
+
     return {
         init: function () {
-            (t = document.querySelector("#kt_customers_export_modal")),
-            (a = new bootstrap.Modal(t)),
-            (i = document.querySelector("#kt_customers_export_form")),
-            (e = i.querySelector("#kt_customers_export_submit")),
-            (n = i.querySelector("#kt_customers_export_cancel")),
-            (o = t.querySelector("#kt_customers_export_close")),
-            (r = FormValidation.formValidation(i, {
+            modalElement = document.querySelector("#editRouteModal");
+            modalInstance = new bootstrap.Modal(modalElement);
+            formElement = document.querySelector("#editRouteForm");
+            submitButton = formElement.querySelector("#submitEditRoute");
+            cancelButton = formElement.querySelector("#cancelEditRoute");
+            closeButton = modalElement.querySelector("#closeEditRouteModal");
+
+            formValidation = FormValidation.formValidation(formElement, {
                 fields: {
                     name: {
                         validators: {
@@ -31,15 +33,15 @@ var KTCustomersExport = (function () {
                         eleValidClass: ""
                     })
                 }
-            })),
-            e.addEventListener("click", function (t) {
-                t.preventDefault();
+            });
 
-                r && r.validate().then(function (t) {
-                    if (t == 'Valid') {
-                        var formData = new FormData(i);
-						console.log(formData)
-                        fetch(u, {
+            submitButton.addEventListener("click", function (event) {
+                event.preventDefault();
+
+                formValidation.validate().then(function (status) {
+                    if (status === 'Valid') {
+                        var formData = new FormData(formElement);
+                        fetch(apiUrl, {
                             method: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
@@ -55,8 +57,10 @@ var KTCustomersExport = (function () {
                                     buttonsStyling: !1,
                                     confirmButtonText: "Ok, got it!",
                                     customClass: { confirmButton: "btn btn-primary" }
-                                }).then(function (t) {
-                                    t.isConfirmed && a.hide();
+                                }).then(function (result) {
+                                    if (result.isConfirmed) {
+                                        modalInstance.hide();
+                                    }
                                 });
                             } else {
                                 Swal.fire({
@@ -68,7 +72,7 @@ var KTCustomersExport = (function () {
                                 });
                             }
                         })
-                        .catch(error => {
+                        .catch(() => {
                             Swal.fire({
                                 text: "An error occurred while updating the route.",
                                 icon: "error",
@@ -87,35 +91,37 @@ var KTCustomersExport = (function () {
                         });
                     }
                 });
-            }),
-            n.addEventListener("click", function (t) {
-                t.preventDefault(), a.hide();
-            }),
-            o.addEventListener("click", function (t) {
-                t.preventDefault(), a.hide();
             });
-            document.querySelectorAll('#edit_route').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    document.querySelector('#edit_route_id').value = this.dataset.id;
-                    document.querySelector('#edit_route_name').value = this.dataset.name;
-                    document.querySelector('#edit_http_req').value = this.dataset.http_req;
-                    document.querySelector('#edit_route_uri').value = this.dataset.uri;
-                    document.querySelector('#edit_route_controller').value = this.dataset.controller;
-                    document.querySelector('#edit_route_action').value = this.dataset.action;
-					$('#edit_http_req').val(this.dataset.http_req).trigger('change');
 
-					u = this.dataset.url
+            cancelButton.addEventListener("click", function (event) {
+                event.preventDefault();
+                modalInstance.hide();
+            });
 
+            closeButton.addEventListener("click", function (event) {
+                event.preventDefault();
+                modalInstance.hide();
+            });
+
+            document.querySelectorAll('.edit-route-button').forEach(button => {
+                button.addEventListener('click', function () {
+                    document.querySelector('#routeId').value = this.dataset.id;
+                    document.querySelector('#routeNameInput').value = this.dataset.name;
+                    document.querySelector('#routeHttpMethod').value = this.dataset.http_req;
+                    document.querySelector('#routeUriInput').value = this.dataset.uri;
+                    document.querySelector('#routeControllerInput').value = this.dataset.controller;
+                    document.querySelector('#routeActionInput').value = this.dataset.action;
+                    $('#routeHttpMethod').val(this.dataset.http_req).trigger('change');
+
+                    apiUrl = this.dataset.url;
                 });
             });
-            document.querySelectorAll('.status .form-check-input').forEach(function(checkbox) {
-                checkbox.addEventListener('change', function() {
+
+            document.querySelectorAll('.status-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
                     let routeId = this.value;
                     let isActive = this.checked ? 1 : 0;
-                    
-                    let url = $('#edit_route').attr('data-url')
-            
-            
+
                     Swal.fire({
                         title: 'Are you sure?',
                         text: "Do you want to change the route status?",
@@ -126,10 +132,11 @@ var KTCustomersExport = (function () {
                         confirmButtonText: 'Yes, change it!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            fetch(url, {
+                            fetch(apiUrl, {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                                   
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
@@ -154,7 +161,7 @@ var KTCustomersExport = (function () {
                                     this.checked = !isActive;
                                 }
                             })
-                            .catch(error => {
+                            .catch(() => {
                                 Swal.fire(
                                     'Error!',
                                     'An error occurred while updating the status.',
@@ -168,14 +175,12 @@ var KTCustomersExport = (function () {
                     });
                 });
             });
-            document.querySelectorAll('.middleware .form-check-input').forEach(function(checkbox) {
-                checkbox.addEventListener('change', function() {
+
+            document.querySelectorAll('.middleware-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
                     let routeId = this.value;
                     let isAuth = this.checked ? 1 : 0;
-                    
-                    let url = $('#edit_route').attr('data-url')
-            
-            
+
                     Swal.fire({
                         title: 'Are you sure?',
                         text: "Do you want to change the route middleware?",
@@ -186,7 +191,7 @@ var KTCustomersExport = (function () {
                         confirmButtonText: 'Yes, change it!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            fetch(url, {
+                            fetch(apiUrl, {
                                 method: 'POST',
                                 headers: {
                                     'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
@@ -214,7 +219,7 @@ var KTCustomersExport = (function () {
                                     this.checked = !isAuth;
                                 }
                             })
-                            .catch(error => {
+                            .catch(() => {
                                 Swal.fire(
                                     'Error!',
                                     'An error occurred while updating the middleware.',
@@ -233,5 +238,5 @@ var KTCustomersExport = (function () {
 })();
 
 KTUtil.onDOMContentLoaded(function () {
-    KTCustomersExport.init();
+    KTEditRoute.init();
 });

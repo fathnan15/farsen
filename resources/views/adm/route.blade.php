@@ -242,13 +242,13 @@
                             <!--end::Is Active=-->
                             <!--begin::Action=-->
                             <td class="text-end">
-                                <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
+                                <a href="#" class="edit-route-button btn btn-sm btn-light btn-active-light-primary"
                                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                                     data-bs-toggle="modal" id="edit_route" data-id="{{ $route->id }}"
                                     data-name="{{ $route->name }}" data-http_req="{{ $route->http_req }}"
                                     data-uri="{{ $route->uri }}" data-controller="{{ $route->controller }}"
                                     data-action="{{ $route->action }}" data-url ="{{ Route('app.route.update') }}"
-                                    data-bs-target="#kt_customers_export_modal">Edit
+                                    data-bs-target="#editRouteModal">Edit
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
                                     <span class="svg-icon svg-icon-5 m-0">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -315,87 +315,6 @@
 @endsection
 
 @section('javascript')
-    <script>
-        "use strict";
-
-        var KTCustomersList = (function() {
-            var t, e, o, n;
-
-            const initTable = () => {
-                n.querySelectorAll("tbody tr").forEach((t) => {
-                    const e = t.querySelectorAll("td"),
-                        o = moment(e[5].innerHTML, "DD MMM YYYY, LT").format();
-                    e[5].setAttribute("data-order", o);
-                });
-
-                t = $(n).DataTable({
-                    info: !1,
-                    order: [],
-                    columnDefs: [{
-                            orderable: !1,
-                            targets: 0
-                        },
-                        {
-                            orderable: !1,
-                            targets: 6
-                        },
-                    ],
-                });
-            };
-
-            const handleSearch = () => {
-                document
-                    .querySelector('[data-kt-customer-table-filter="search"]')
-                    .addEventListener("keyup", function(e) {
-                        t.search(e.target.value).draw();
-                    });
-            };
-
-            const handleFilters = () => {
-                e = $('[data-kt-customer-table-filter="month"]');
-                o = document.querySelectorAll(
-                    '[data-kt-customer-table-filter="request_method"] [name="request_method"]'
-                );
-
-                document
-                    .querySelector('[data-kt-customer-table-filter="filter"]')
-                    .addEventListener("click", function() {
-                        const n = e.val();
-                        let c = "";
-                        o.forEach((t) => {
-                            t.checked && (c = t.value), "all" === c && (c = "");
-                        });
-                        const r = c;
-                        t.search(r).draw();
-                    });
-
-                document
-                    .querySelector('[data-kt-customer-table-filter="reset"]')
-                    .addEventListener("click", function() {
-                        e.val(null).trigger("change");
-                        (o[0].checked = !0);
-                        t.search("").draw();
-                    });
-            };
-
-            return {
-                init: function() {
-                    n = document.querySelector("#kt_customers_table");
-
-                    if (n) {
-                        initTable();
-                        handleSearch();
-                        handleFilters();
-                    }
-                },
-            };
-        })();
-
-        KTUtil.onDOMContentLoaded(function() {
-            KTCustomersList.init();
-        });
-    </script>
-
     @if ($errors->any())
         <script>
             document.addEventListener("DOMContentLoaded", function() {

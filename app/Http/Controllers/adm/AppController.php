@@ -4,7 +4,6 @@ namespace App\Http\Controllers\adm;
 
 use App\Http\Controllers\Controller;
 use App\Models\AppRoute;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -14,7 +13,6 @@ class AppController extends Controller
     public function route(Request $request)
     {
         if ($request->isMethod('POST')) {
-            // dd($request);
             $request->validate([
                 'name' => [
                     'required',
@@ -23,20 +21,20 @@ class AppController extends Controller
                             ->where('name', $request->name);
                     }),
                 ],
-            ], ['name', 'The combination of HTTP request :value and name must be unique.']);
-            $default_input = [
+            ], ['name' => 'The combination of HTTP request method and route name must be unique.']);
+
+            $input = array_merge([
                 'created_by' => Auth::id(),
                 'created_at' => now('Asia/Jakarta')
-            ];
-            $input = array_merge($default_input, $request->input());
-            AppRoute::create($input);
+            ], $request->all());
 
+            AppRoute::create($input);
 
             session()->flash('success', 'New Route has been successfully added!');
             return redirect()->route('app.route');
         }
 
-        $routes  = AppRoute::orderBy('name')->get();
+        $routes = AppRoute::orderBy('name')->get();
         return view('adm.route', ['routes' => $routes]);
     }
 
@@ -80,15 +78,10 @@ class AppController extends Controller
         ]);
 
         $route = AppRoute::find($request->id);
-
-        $route->http_req = $request->http_req;
-        $route->uri = $request->uri;
-        $route->controller = $request->controller;
-        $route->action = $request->action;
-        $route->name = $request->name;
+        $route->fill($request->only(['name', 'http_req', 'uri', 'controller', 'action']));
         $route->updated_by = Auth::id();
         $route->save();
 
-        return response()->json(['success' => true, 'message' => 'Route updated successfully.', ['']]);
+        return response()->json(['success' => true, 'message' => 'Route updated successfully.']);
     }
 }

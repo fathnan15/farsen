@@ -1,14 +1,5 @@
 UserSubmenu::create([
-    'submenu_nm' => 'Users',
-    'route_nm'  => 'users.management',
-    'menu_id' => 1,
-    'created_by' => 1,
-    'created_at' => now('Asia/Jakarta'),
-])
-
-
-UserSubmenu::create([
-    'submenu_nm' => 'profile',
+    'submenu_nm' => 'Profile',
     'route_nm'  => 'profile',
     'menu_id' => 2,
     'created_by' => 1,
@@ -25,7 +16,7 @@ UserSubmenu::create([
 UserSubmenu::create([
     'submenu_nm' => 'Account Setting',
     'route_nm'  => 'account.setting',
-    'relate_id' => 3,
+    'relate_id' => 2,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])
@@ -33,7 +24,53 @@ UserSubmenu::create([
 UserSubmenu::create([
     'submenu_nm' => 'Profile Setting',
     'route_nm'  => 'profile.setting',
-    'relate_id' => 3,
+    'relate_id' => 2,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Application Management',
+    'menu_id' => 1,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Route',
+    'route_nm'  => 'app.route',
+    'relate_id' => 5,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Menu',
+    'route_nm'  => 'app.menu',
+    'relate_id' => 5,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'Users Management',
+    'menu_id' => 1,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'User Registation',
+    'route_nm'  => 'app.users.registation',
+    'relate_id' => 8,
+    'created_by' => 1,
+    'created_at' => now('Asia/Jakarta'),
+])
+
+UserSubmenu::create([
+    'submenu_nm' => 'User Access',
+    'route_nm'  => 'app.users.access',
+    'relate_id' => 8,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),
 ])

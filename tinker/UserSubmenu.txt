@@ -40,7 +40,7 @@ UserSubmenu::create([
 
 UserSubmenu::create([
     'submenu_nm' => 'Inventory',
-    'route_nm'  => '',
+    'route_nm'  => 'warehouse.inventory',
     'menu_id' => 3,
     'created_by' => 1,
     'created_at' => now('Asia/Jakarta'),

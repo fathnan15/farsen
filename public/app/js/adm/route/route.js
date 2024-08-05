@@ -1,7 +1,7 @@
 "use strict";
 
 var RoutesList = (function() {
-    var t, e, o, n;
+    var t, o, n;
 
     const initTable = () => {
         n.querySelectorAll("tbody tr").forEach((t) => {
@@ -34,7 +34,6 @@ var RoutesList = (function() {
     };
 
     const handleFilters = () => {
-        e = $('[data-kt-route-table-filter="month"]');
         o = document.querySelectorAll(
             '[data-kt-route-table-filter="request_method"] [name="request_method"]'
         );
@@ -42,7 +41,6 @@ var RoutesList = (function() {
         document
             .querySelector('[data-kt-route-table-filter="filter"]')
             .addEventListener("click", function() {
-                const n = e.val();
                 let c = "";
                 o.forEach((t) => {
                     t.checked && (c = t.value), "all" === c && (c = "");
@@ -54,7 +52,6 @@ var RoutesList = (function() {
         document
             .querySelector('[data-kt-route-table-filter="reset"]')
             .addEventListener("click", function() {
-                e.val(null).trigger("change");
                 (o[0].checked = !0);
                 t.search("").draw();
             });
@@ -76,3 +73,11 @@ var RoutesList = (function() {
 KTUtil.onDOMContentLoaded(function() {
     RoutesList.init();
 });
+
+$(document).ready(function() {
+    var table = $('#routes_table').DataTable();
+
+    table.on('draw', function() {
+        KTEditRoute.init()
+    });
+})

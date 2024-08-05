@@ -1,5 +1,3 @@
-#create Users
-
 User::create([
     'name' => 'Admin',
     'username' => 'admin',

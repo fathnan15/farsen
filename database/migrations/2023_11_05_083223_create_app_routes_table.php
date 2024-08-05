@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('app_routes', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('http_req');
+            $table->string('http_req')->index();
             $table->string('uri');
             $table->string('controller');
             $table->string('action');
-            $table->string('name');
+            $table->string('name')->index();
             $table->boolean('is_auth')->default(1);
-            $table->foreignId('created_by')->comment('relate to table:users, column:id');
+            $table->foreignId('created_by')->references('id')->on('users')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');
-            $table->foreignId('updated_by')->comment('relate to table:users, column:id');
-            $table->dateTime('updated_at')->default(now('Asia/Jakarta'));
+            $table->foreignId('updated_by')->references('id')->on('users')->comment('relate to table:users, column:id');
+            $table->dateTime('updated_at')->default(now('Asia/Jakarta'))->index();
             $table->boolean('is_active')->default(1);
         });
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserMenu extends Model
 {
@@ -15,8 +16,8 @@ class UserMenu extends Model
         'is_active',
     ];
 
-    public function subMenu()
+    public function subMenu(): HasMany
     {
-        return $this->hasMany(MenusSubmenu::class);
+        return $this->hasMany(UserSubmenu::class, 'menu_id');
     }
 }

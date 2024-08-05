@@ -15,9 +15,9 @@ class UserSubmenu extends Model
         'updated_at',
         'is_active',
     ];
-    
-    public function menu():BelongsTo
+
+    public function menu(): BelongsTo
     {
-        return $this->belongsTo(UsersMenu::class);
+        return $this->belongsTo(UserMenu::class);
     }
 }

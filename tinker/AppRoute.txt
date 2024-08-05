@@ -109,7 +109,7 @@ AppRoute::create([
 AppRoute::create([
     'http_req'      =>  'get',
     'uri'           =>  'adm/app/route',
-    'controller'    =>  'adm\AppController',
+    'controller'    =>  'Administrator\ApplicationManagement\RouteController',
     'action'        =>  'route',
     'name'          =>  'app.route',
     'is_auth'       =>  1,
@@ -121,7 +121,7 @@ AppRoute::create([
 AppRoute::create([
     'http_req'      =>  'post',
     'uri'           =>  'adm/app/route',
-    'controller'    =>  'adm\AppController',
+    'controller'    =>  'Administrator\ApplicationManagement\RouteController',
     'action'        =>  'route',
     'name'          =>  'app.route',
     'is_auth'       =>  1,
@@ -133,7 +133,7 @@ AppRoute::create([
 AppRoute::create([
     'http_req'      =>  'post',
     'uri'           =>  'adm/app/route_update',
-    'controller'    =>  'adm\AppController',
+    'controller'    =>  'Administrator\ApplicationManagement\RouteController',
     'action'        =>  'updateRoute',
     'name'          =>  'app.route.update',
     'is_auth'       =>  1,
@@ -144,14 +144,38 @@ AppRoute::create([
 
 AppRoute::create([
     'http_req'      =>  'get',
-    'uri'           =>  'administrator/users',
-    'controller'    =>  'AdministratorController',
-    'action'        =>  'users',
-    'name'          =>  'users.management',
+    'uri'           =>  'adm/app/menu',
+    'controller'    =>  'Administrator\ApplicationManagement\MenuController',
+    'action'        =>  'menu',
+    'name'          =>  'app.menu',
     'is_auth'       =>  1,
     'created_by'    =>  1,
     'created_at'    =>  now('Asia/Jakarta'),
     'updated_by'    =>  1
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'adm/users/u_registation',
+    'controller'    =>  'Administrator\UsersManagement\UsersController',
+    'action'        =>  'registation',
+    'name'          =>  'app.users.registation',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    => 1
+])
+
+AppRoute::create([
+    'http_req'      =>  'get',
+    'uri'           =>  'adm/users/u_access',
+    'controller'    =>  'Administrator\UsersManagement\UsersController',
+    'action'        =>  'access',
+    'name'          =>  'app.users.access',
+    'is_auth'       =>  1,
+    'created_by'    =>  1,
+    'created_at'    =>  now('Asia/Jakarta'),
+    'updated_by'    => 1
 ])
 
 AppRoute::create([
@@ -164,28 +188,4 @@ AppRoute::create([
     'created_by'    =>  1,
     'created_at'    =>  now('Asia/Jakarta'),
     'updated_by'    =>  1
-])
-
-AppRoute::create([
-    'http_req'      =>  'get',
-    'uri'           =>  'adm/users/u_registation',
-    'controller'    =>  'adm\UsersController',
-    'action'        =>  'registation',
-    'name'          =>  'app.users.registation',
-    'is_auth'       =>  1,
-    'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta'),
-    'updated_by'    => 1
-])
-
-AppRoute::create([
-    'http_req'      =>  'get',
-    'uri'           =>  'adm/users/u_access',
-    'controller'    =>  'adm\UsersController',
-    'action'        =>  'access',
-    'name'          =>  'app.users.access',
-    'is_auth'       =>  1,
-    'created_by'    =>  1,
-    'created_at'    =>  now('Asia/Jakarta'),
-    'updated_by'    => 1
 ])

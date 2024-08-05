@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\adm;
+namespace App\Http\Controllers\Administrator\ApplicationManagement;
 
 use App\Http\Controllers\Controller;
 use App\Models\AppRoute;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class AppController extends Controller
+class RouteController extends Controller
 {
     public function route(Request $request)
     {

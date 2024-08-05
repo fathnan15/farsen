@@ -136,10 +136,10 @@
                             <td>{{ $route->updated_at }}</td>
                             <td>
                                 <div class="col-xl-9">
-                                    <div class="middleware form-check form-switch form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="{{ $route->id }}"
-                                            id="routeStatus_{{ $route->id }}" name="is_auth"
-                                            {{ $route->is_auth == 1 ? 'checked' : '' }}>
+                                    <div class="form-check form-switch form-check-custom form-check-solid">
+                                        <input class="middleware-checkbox form-check-input" type="checkbox"
+                                            value="{{ $route->id }}" id="routeStatus_{{ $route->id }}"
+                                            name="is_auth" {{ $route->is_auth == 1 ? 'checked' : '' }}>
                                         <label class="form-check-label fw-bold text-gray-400 ms-3"
                                             for="routeStatus_{{ $route->id }}">
                                             @switch($route->is_auth)
@@ -159,10 +159,10 @@
                             </td>
                             <td>
                                 <div class="col-xl-9">
-                                    <div class="status form-check form-switch form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="{{ $route->id }}"
-                                            id="routeStatus_{{ $route->id }}" name="is_active"
-                                            {{ $route->is_active == 1 ? 'checked' : '' }}>
+                                    <div class="form-check form-switch form-check-custom form-check-solid">
+                                        <input class="status-checkbox form-check-input" type="checkbox"
+                                            value="{{ $route->id }}" id="routeStatus_{{ $route->id }}"
+                                            name="is_active" {{ $route->is_active == 1 ? 'checked' : '' }}>
                                         <label class="form-check-label fw-bold text-gray-400 ms-3"
                                             for="routeStatus_{{ $route->id }}">
                                             @switch($route->is_active)

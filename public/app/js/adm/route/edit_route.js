@@ -1,7 +1,8 @@
 "use strict";
 
 var KTEditRoute = (function () {
-    var modalElement, modalInstance, formElement, submitButton, cancelButton, closeButton, formValidation, apiUrl;
+    var modalElement, modalInstance, formElement, submitButton, cancelButton, closeButton, formValidation;
+    let apiUrl = $('#edit_route').attr('data-url');
 
     return {
         init: function () {
@@ -112,8 +113,6 @@ var KTEditRoute = (function () {
                     document.querySelector('#routeControllerInput').value = this.dataset.controller;
                     document.querySelector('#routeActionInput').value = this.dataset.action;
                     $('#routeHttpMethod').val(this.dataset.http_req).trigger('change');
-
-                    apiUrl = this.dataset.url;
                 });
             });
 

@@ -1,25 +1,26 @@
 "use strict";
 
-var RoutesList = (function() {
+var RoutesList = (function () {
     var t, o, n;
 
     const initTable = () => {
         n.querySelectorAll("tbody tr.menu-row").forEach((t) => {
             const e = t.querySelectorAll("td"),
-                o = moment(e[4].innerHTML, "DD MMM YYYY, LT").format();
-            e[4].setAttribute("data-order", o);
+                o = moment(e[5].innerHTML, "DD MMM YYYY, LT").format();
+            e[5].setAttribute("data-order", o);
         });
 
         t = $(n).DataTable({
             info: !1,
             order: [],
-            columnDefs: [{
+            columnDefs: [
+                {
                     orderable: !1,
-                    targets: 0
+                    targets: 0,
                 },
                 {
                     orderable: !1,
-                    targets: 5
+                    targets: 5,
                 },
             ],
         });
@@ -28,56 +29,113 @@ var RoutesList = (function() {
     const handleSearch = () => {
         document
             .querySelector('[data-kt-menu-table-filter="search"]')
-            .addEventListener("keyup", function(e) {
+            .addEventListener("keyup", function (e) {
                 t.search(e.target.value).draw();
             });
     };
 
-    // const handleFilters = () => {
-    //     o = document.querySelectorAll(
-    //         '[data-kt-route-table-filter="request_method"] [name="request_method"]'
-    //     );
+    const handleDetailExpand = () => {
+        const detailButtons = document.querySelectorAll(".detail-btn");
+        detailButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
+                // e.preventDefault();
+                const id = this.getAttribute("data-id");
+                const menuRow = document.getElementById(`menu_${id}`);
+                const submenuRows = document.querySelectorAll(`.submenu`);
 
-    //     document
-    //         .querySelector('[data-kt-route-table-filter="filter"]')
-    //         .addEventListener("click", function() {
-    //             let c = "";
-    //             o.forEach((t) => {
-    //                 t.checked && (c = t.value), "all" === c && (c = "");
-    //             });
-    //             const r = c;
-    //             t.search(r).draw();
-    //         });
+                submenuRows.forEach((r) => {
+                    r.remove();
+                });
 
-    //     document
-    //         .querySelector('[data-kt-route-table-filter="reset"]')
-    //         .addEventListener("click", function() {
-    //             (o[0].checked = !0);
-    //             t.search("").draw();
-    //         });
-    // };
+                if (this.classList.contains("collapse-detail-btn")) {
+                    this.classList.remove(
+                        "collapse-detail-btn",
+                        "btn-light-success"
+                    );
+                    this.classList.add("expand-detail-btn", "btn-light-danger");
+                    this.querySelector("i").classList.replace(
+                        "fa-caret-square-down",
+                        "fa-minus-square"
+                    );
+
+                    let submenu = `<tr class='submenu text-center menu-row' id=submenu_${id}>
+                    <td colspan=6>
+                        <table class="table table-row">
+                            <thead>
+                                <tr>
+                                    <th>Submenu Name</th>
+                                    <th>Path</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>submenu.submenu_nm</td>
+                                    <td>submenu.path</td>
+                                    <td> Actions </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                `;
+                    menuRow.insertAdjacentHTML("afterend", submenu);
+                } else {
+                        this.classList.remove(
+                            "expand-detail-btn",
+                            "btn-light-danger"
+                        );
+                        this.classList.add(
+                            "collapse-detail-btn",
+                            "btn-light-success"
+                        );
+                        this.querySelector("i").classList.replace(
+                            "fa-minus-square",
+                            "fa-caret-square-down"
+                        );
+                }
+
+                detailButtons.forEach((btn) => {
+                    if(btn !== this){
+                        btn.classList.remove(
+                            "expand-detail-btn",
+                            "btn-light-danger"
+                        );
+                        btn.classList.add(
+                            "collapse-detail-btn",
+                            "btn-light-success"
+                        );
+                        btn.querySelector("i").classList.replace(
+                            "fa-minus-square",
+                            "fa-caret-square-down"
+                        );
+                    }
+                });
+            });
+        });
+    };
 
     return {
-        init: function() {
+        init: function () {
             n = document.querySelector("#menus_table");
 
             if (n) {
                 initTable();
                 handleSearch();
-                // handleFilters();
+                handleDetailExpand();
             }
         },
     };
 })();
 
-KTUtil.onDOMContentLoaded(function() {
+KTUtil.onDOMContentLoaded(function () {
     RoutesList.init();
 });
 
-$(document).ready(function() {
-    var table = $('#routes_table').DataTable();
+$(document).ready(function () {
+    var table = $("#routes_table").DataTable();
 
-    table.on('draw', function() {
-        KTEditRoute.init()
+    table.on("draw", function () {
+        KTEditRoute.init();
     });
-})
+});

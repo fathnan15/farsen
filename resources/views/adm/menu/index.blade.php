@@ -77,13 +77,13 @@
                                 {{ $menu->updated_at }}
                             </td>
                             <td class="text-center">
-                                <a href="#" class="detail-menu-button btn btn-sm btn-light btn-active-light-primary"
-                                    data-id="{{ $menu->id }}">Detail</a>
-                            </td>
-                        </tr>
-                        <tr class="submenu" id="submenu_{{ $menu->id }}" style="display: none;">
-                            <td colspan="6">
-                                <div class="submenu_details" id="submenu_details_{{ $menu->id }}"></div>
+                                <a href="#"
+                                    class="detail-btn collapse-detail-btn btn btn-sm btn-light-success btn-active-light-primary"
+                                    data-id="{{ $menu->id }}">
+                                    <span class="svg-icon svg-icon-1 m-0">
+                                        <i class="fas fa-caret-square-down"></i>
+                                    </span>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -122,63 +122,4 @@
             });
         </script>
     @endif
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const detailButtons = document.querySelectorAll('.detail-menu-button');
-            detailButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const id = this.getAttribute('data-id');
-                    const submenuRow = document.getElementById(`submenu_${id}`);
-                    const submenuDetails = document.getElementById(`submenu_details_${id}`);
-
-                    if (!submenuDetails.hasChildNodes() && submenuRow.style.display === 'none') {
-                        // Hide all other submenus
-                        document.querySelectorAll('.submenu').forEach(row => {
-                            row.style.display = 'none';
-                        });
-
-                        document.querySelectorAll('.table-details').forEach(row => {
-                            row.remove();
-                        });
-
-                        submenuRow.style.display = 'table-row';
-
-                        let detailsHtml =
-                            `<table class="table table-details">
-                                <thead>
-                                    <tr>
-                                        <th>Submenu Name</th>
-                                        <th>Path</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>submenu.submenu_nm</td>
-                                        <td>submenu.path</td>
-                                        <td> Actions </td>
-                                    </tr>
-                                </tbody>
-                            </table>`;
-                        // data.forEach(submenu => {
-                        //     detailsHtml +=
-                        // });
-                        // detailsHtml += ';
-                        submenuDetails.innerHTML = detailsHtml;
-                        // fetch(`/admin/menu/detail/${id}`)
-                        //     .then(response => response.json())
-                        //     .then(data => {
-                        //     });
-                    } else {
-                        submenuRow.style.display = 'none';
-                        while (submenuDetails.hasChildNodes()) {
-                            submenuDetails.removeChild(submenuDetails.firstChild);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

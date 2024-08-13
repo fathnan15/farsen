@@ -106,7 +106,14 @@
                             if ($route->is_active == 0 || Str::contains($route->uri, '')) {
                                 $hrefUri = '#';
                             } else {
-                                $hrefUri = route($route->name);
+                                switch (Str::contains($route->uri, '/{')) {
+                                    case true:
+                                        $hrefUri = '#';
+                                        break;
+                                    default:
+                                        $hrefUri = route($route->name);
+                                        break;
+                                }
                             }
                         @endphp
                         <tr id="route_{{ $route->id }}">

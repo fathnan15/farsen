@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserSubmenu extends Model
 {
@@ -15,6 +16,16 @@ class UserSubmenu extends Model
         'updated_at',
         'is_active',
     ];
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(UserSubmenu::class, 'relate_id');
+    }
+
+    public function children(): HasMany
+    {
+        return $this->hasMany(UserSubmenu::class, 'relate_id');
+    }
 
     public function menu(): BelongsTo
     {

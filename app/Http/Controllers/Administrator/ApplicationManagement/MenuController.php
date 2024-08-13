@@ -11,15 +11,15 @@ class MenuController extends Controller
     public function menu(Request $request)
     {
         $menus = UserMenu::orderBy('menu_nm')->get();
-        // $m = UserMenu::find(1);
-        // $sm = $m->subMenu;
-        // dd($sm);
         return view('adm.menu.index', ['menus' => $menus]);
-        // dd('test menu controller');
-
     }
 
-    public function menuDetail()
+    public function getDetails($id)
     {
+        $menu = UserMenu::with(['subMenu' => function ($query) {
+            $query->whereNull('relate_id')
+                ->with('children');
+        }])->findOrFail($id);
+        return response()->json($menu);
     }
 }

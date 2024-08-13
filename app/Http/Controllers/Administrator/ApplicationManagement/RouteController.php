@@ -25,6 +25,7 @@ class RouteController extends Controller
 
             $input = array_merge([
                 'created_by' => Auth::id(),
+                'updated_by' => Auth::id(),
                 'created_at' => now('Asia/Jakarta')
             ], $request->all());
 

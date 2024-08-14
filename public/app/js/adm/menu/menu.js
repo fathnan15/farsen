@@ -121,8 +121,6 @@ var RoutesList = (function () {
 
     const updateMenuDetails = (id, data) => {
         const submenuRow = document.getElementById(`submenu_${id}`);
-        console.table(data);
-        console.log(data.sub_menu);
         if (submenuRow) {
             let ren = `
             <td colspan=6>
@@ -184,6 +182,19 @@ var RoutesList = (function () {
                                                                                     }
                                                                                 </span>
                                                                             </a>
+                                                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded fw-bold w-150px py-3"
+                                                                            data-kt-menu="true">
+                                                                            <div class="menu-item px-3">
+                                                                                ${
+                                                                                    data.is_active ===
+                                                                                    0
+                                                                                        ? `<a href="#" class="menu-status menu-link btn-active-light-primary btn-success px-3" style="justify-content:center" data-id="${data.id}"
+                                                                                    data-status="1">Activated`
+                                                                                        : `<a href="#" class="menu-link btn-active-light-primary btn-danger px-3" style="justify-content:center" data-id="${data.id}"
+                                                                                    data-status="0">Deactivated`
+                                                                                }</a>
+                                                                            </div>
+                                                                        </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -221,6 +232,10 @@ var RoutesList = (function () {
             </td>
         `;
             submenuRow.innerHTML = ren;
+
+            setTimeout(() => {
+                KTMenu.createInstances();
+            }, 100);
         }
     };
 

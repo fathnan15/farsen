@@ -95,7 +95,7 @@
     <!--end::Card-->
 
     <!--begin::Modal Add Route-->
-    @include('adm.menu.modal.add_menu')
+    {{-- @include('adm.menu.modal.add_menu') --}}
     <!--end::Add Route-->
     <!--begin::Modal Edit Route-->
     {{-- @include('adm.menu.modal.edit_menu') --}}
@@ -109,7 +109,7 @@
 
     <!--begin::App JS -->
     <script src="{{ asset('app/js/adm/menu/menu.js') }}"></script>
-    <script src="{{ asset('app/js/adm/menu/edit_menu.js') }}"></script>
+    {{-- <script src="{{ asset('app/js/adm/menu/edit_menu.js') }}"></script> --}}
     {{-- <script src="{{ asset('app/js/adm/menu/add_menu.js') }}"></script> --}}
     <!--end::App JS -->
 @endsection

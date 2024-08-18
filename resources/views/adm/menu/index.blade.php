@@ -53,7 +53,7 @@
                         <th class="text-center min-w-70px">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="fw-bold text-gray-600">
+                <tbody class="fw-bold text-gray-800">
                     @foreach ($menus as $menu)
                         <tr class="menu-row" id="menu_{{ $menu->id }}">
                             <td>
@@ -63,15 +63,13 @@
                                 </div>
                             </td>
                             <td data-filter = "{{ $menu->menu_nm }}">
-                                <span class="text-gray-800 mb-1">
-                                    {{ $menu->menu_nm }}
-                                </span>
+                                {{ $menu->menu_nm }}
                             </td>
                             <td>
-                                <span class="text-gray-600 mb-1">{{ $menu->path }}</span>
+                                {{ $menu->path }}
                             </td>
                             <td>
-                                <span class="text-gray-600 mb-1">{{ $menu->icon }}</span>
+                                {{ $menu->icon }}
                             </td>
                             <td>
                                 {{ $menu->updated_at }}

@@ -1,4 +1,5 @@
-<div class="modal fade" id="modal_add_route" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modal_add_route" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-650px">
         <!--begin::Modal content-->

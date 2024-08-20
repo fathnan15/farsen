@@ -36,7 +36,13 @@ class RouteController extends Controller
         }
 
         $routes = AppRoute::orderBy('name')->get();
-        return view('adm.route.index', ['routes' => $routes]);
+        return view(
+            'adm.route.index',
+            [
+                'method_path' => 'administrator/application management/route',
+                'routes' => $routes,
+            ]
+        );
     }
 
     public function updateRoute(Request $request)

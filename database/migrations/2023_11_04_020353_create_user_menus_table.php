@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('menu_nm')->unique();
             $table->string('path')->unique();
             $table->string('icon')->default('fas fa-prescription');
-            $table->foreignId('created_by');
+            $table->foreignId('created_by')->references('id')->on('users')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');
+            $table->foreignId('updated_by')->references('id')->on('users')->comment('relate to table:users, column:id');
             $table->dateTime('updated_at')->default(now('Asia/Jakarta'));
             $table->boolean('is_active')->default(1);
         });

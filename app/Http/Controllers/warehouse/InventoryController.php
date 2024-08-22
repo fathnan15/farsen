@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class InventoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view("warehouse.inventory", ['method_path' => 'warehouse/inventory']);
+        return view(
+            "warehouse.inventory",
+            [
+                'method_path' => base64_decode($request->input('path')),
+            ]
+        );
     }
 }

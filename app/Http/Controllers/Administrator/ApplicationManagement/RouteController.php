@@ -39,7 +39,7 @@ class RouteController extends Controller
         return view(
             'adm.route.index',
             [
-                'method_path' => 'administrator/application management/route',
+                'method_path' => base64_decode($request->input('path')),
                 'routes' => $routes,
             ]
         );

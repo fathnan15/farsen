@@ -31,7 +31,7 @@ class MenuController extends Controller
         return view(
             'adm.menu.index',
             [
-                'method_path' => 'administrator/application management/menu',
+                'method_path' => base64_decode($request->input('path')),
                 'menus' => $menus
             ]
         );

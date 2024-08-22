@@ -105,7 +105,7 @@
                                         @foreach ($subsUserMenu as $userSubMenu)
                                             @if ($userSubMenu->route_nm !== null && $userSubMenu->relate_id === null)
                                                 <div class="menu-item px-5">
-                                                    <a href="{{ Route($userSubMenu->route_nm) }}"
+                                                    <a href="{{ Route($userSubMenu->route_nm) }}?path={{ base64_encode($userSubMenu->path) }}"
                                                         class="menu-link px-5">{{ Str::title($userSubMenu->submenu_nm) }}</a>
                                                 </div>
                                             @else
@@ -129,7 +129,7 @@
                                                         @foreach ($userSubMenu_items as $usm_item)
                                                             <!--begin::Menu item-->
                                                             <div class="menu-item px-3">
-                                                                <a href="{{ Route($usm_item->route_nm) }}"
+                                                                <a href="{{ Route($usm_item->route_nm) }}?path={{ base64_encode($usm_item->path) }}"
                                                                     class="menu-link px-5">{{ Str::title($usm_item->submenu_nm) }}</a>
                                                             </div>
                                                         @endforeach
@@ -203,7 +203,7 @@
                                             @if ($subMenu->route_nm !== null && $subMenu->relate_id === null)
                                                 <div class="menu-item">
                                                     <a class="menu-link @isset($method_path) @if (Str::title(explode('/', $method_path)[1]) === Str::title($subMenu->submenu_nm))active @endif @endisset"
-                                                        href="{{ Route($subMenu->route_nm) }}">
+                                                        href="{{ Route($subMenu->route_nm) }}?path={{ base64_encode($subMenu->path) }}">
                                                         <span class="menu-bullet">
                                                             <span class="bullet bullet-dot"></span>
                                                         </span>
@@ -232,8 +232,8 @@
                                                         @endphp
                                                         @foreach ($subMenu_items as $submenu_item)
                                                             <div class="menu-item">
-                                                                <a class="menu-link @isset(explode('/', $method_path)[2]) @if (Str::title(explode('/', $method_path)[2]) === Str::title($submenu_item->submenu_nm))active @endif @endisset"
-                                                                    href="{{ Route($submenu_item->route_nm) }}">
+                                                                <a class="menu-link @isset($method_path, explode('/', $method_path)[2]) @if (Str::title(explode('/', $method_path)[2]) === Str::title($submenu_item->submenu_nm))active @endif @endisset"
+                                                                    href="{{ Route($submenu_item->route_nm) }}?path={{ base64_encode($submenu_item->path) }}">
                                                                     <span class="menu-bullet">
                                                                         <span class="bullet bullet-dot"></span>
                                                                     </span>
@@ -1197,6 +1197,18 @@
             })
         </script>
     @endif
+    {{-- <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll("a[data-path]").forEach(a => {
+                a.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    document.cookie = `path="${this.dataset.path}"`;
+                    
+                })
+            });
+
+        })
+    </script> --}}
 
 </body>
 

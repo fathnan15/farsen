@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('user_menus', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('menu_nm')->unique();
-            $table->string('path')->unique();
             $table->string('icon')->default('fas fa-prescription');
             $table->foreignId('created_by')->references('id')->on('users')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');

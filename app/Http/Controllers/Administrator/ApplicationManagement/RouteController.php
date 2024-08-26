@@ -45,15 +45,14 @@ class RouteController extends Controller
         );
     }
 
-    public function updateRoute(Request $request)
+    public function updateRoute(Request $request, string $id)
     {
-        $route = AppRoute::find($request->id);
+        $route = AppRoute::find($id);
+
         if ($request->has('is_active')) {
             $request->validate([
-                'id' => 'required|exists:app_routes,id',
                 'is_active' => 'required|boolean',
             ]);
-
 
             $route->is_active = $request->is_active;
             $route->updated_by = Auth::id();
@@ -64,7 +63,6 @@ class RouteController extends Controller
 
         if ($request->has('is_auth')) {
             $request->validate([
-                'id' => 'required|exists:app_routes,id',
                 'is_auth' => 'required|boolean',
             ]);
 
@@ -76,7 +74,6 @@ class RouteController extends Controller
         }
 
         $request->validate([
-            'id' => 'required|exists:app_routes,id',
             'name' => 'required|string|max:255',
             'http_req' => 'required|string|in:get,post',
             'uri' => 'required|string|max:255',

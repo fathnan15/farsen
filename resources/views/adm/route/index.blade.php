@@ -144,7 +144,8 @@
                             <td>
                                 <div class="col-xl-9">
                                     <div class="form-check form-switch form-check-custom form-check-solid">
-                                        <input class="middleware-checkbox form-check-input" type="checkbox"
+                                        <input data-action="{{ Route('app.route.update', ['id' => $route->id]) }}"
+                                            class="middleware-checkbox form-check-input" type="checkbox"
                                             value="{{ $route->id }}" id="routeStatus_{{ $route->id }}"
                                             name="is_auth" {{ $route->is_auth == 1 ? 'checked' : '' }}>
                                         <label class="form-check-label fw-bold text-gray-400 ms-3"
@@ -167,7 +168,8 @@
                             <td>
                                 <div class="col-xl-9">
                                     <div class="form-check form-switch form-check-custom form-check-solid">
-                                        <input class="status-checkbox form-check-input" type="checkbox"
+                                        <input data-action="{{ Route('app.route.update', ['id' => $route->id]) }}"
+                                            class="status-checkbox form-check-input" type="checkbox"
                                             value="{{ $route->id }}" id="routeStatus_{{ $route->id }}"
                                             name="is_active" {{ $route->is_active == 1 ? 'checked' : '' }}>
                                         <label class="form-check-label fw-bold text-gray-400 ms-3"
@@ -188,13 +190,13 @@
                                 </div>
                             </td>
                             <td class="text-end">
-                                <a href="#" class="edit-route-button btn btn-sm btn-light btn-active-light-primary"
+                                <a href="{{ Route('app.route.update', ['id' => $route->id]) }}"
+                                    class="edit-route-button btn btn-sm btn-light btn-active-light-primary"
                                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
                                     data-bs-toggle="modal" id="edit_route" data-id="{{ $route->id }}"
                                     data-name="{{ $route->name }}" data-http_req="{{ $route->http_req }}"
                                     data-uri="{{ $route->uri }}" data-controller="{{ $route->controller }}"
-                                    data-action="{{ $route->action }}" data-url ="{{ Route('app.route.update') }}"
-                                    data-bs-target="#editRouteModal">Edit
+                                    data-action="{{ $route->action }}" data-bs-target="#editRouteModal">Edit
 
                                     <span class="svg-icon svg-icon-5 m-0">
                                         <i class="fas fa-edit"></i>

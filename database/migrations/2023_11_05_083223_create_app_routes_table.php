@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('controller');
             $table->string('action');
             $table->string('name')->index();
+            $table->string('role_permissions')->default('member');
             $table->boolean('is_auth')->default(1);
             $table->foreignId('created_by')->references('id')->on('users')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');

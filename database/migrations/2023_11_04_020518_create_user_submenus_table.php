@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('route_nm')->nullable(true);
             $table->string('path')->nullable(true);
             $table->unsignedSmallInteger('menu_id')->nullable(true)->comment('relate to table:user_menus, column:id');
-            $table->unsignedSmallInteger('relate_id')->comment('relate to table:user_submenus, column:id; for submenu item')->nullable(true);
+            $table->unsignedSmallInteger('parent_id')->comment('relate to table:user_submenus, column:id; for submenu item')->nullable(true);
             $table->foreignId('created_by')->references('id')->on('users')->comment('relate to table:users, column:id');
             $table->dateTime('created_at');
             $table->foreignId('updated_by')->references('id')->on('users')->comment('relate to table:users, column:id');
